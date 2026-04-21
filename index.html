@@ -1654,8 +1654,8 @@
 
     /* Próximos lotes */
     .oferta-proximos {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(180,30,30,.07);
+      border: 1px solid rgba(220,60,60,.2);
       border-radius: 6px;
       padding: 20px 24px;
       margin-bottom: 24px;
@@ -1665,46 +1665,54 @@
       font-size: 10px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: rgba(245,237,214,.3);
+      color: rgba(245,237,214,.45);
       margin-bottom: 14px;
     }
     .oferta-prox-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,.05);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(220,60,60,.12);
     }
     .oferta-prox-item:last-of-type { border-bottom: none; }
+
+    /* cadeado brilhoso com glow pulsante */
     .cadeado {
-      font-size: 15px;
-      opacity: .55;
+      font-size: 22px;
       flex-shrink: 0;
+      filter: drop-shadow(0 0 6px rgba(255,100,100,.7)) drop-shadow(0 0 12px rgba(255,60,60,.4));
+      animation: cadeado-pulse 2.4s ease-in-out infinite;
     }
+    @keyframes cadeado-pulse {
+      0%, 100% { filter: drop-shadow(0 0 5px rgba(255,100,100,.6)) drop-shadow(0 0 10px rgba(255,60,60,.3)); transform: scale(1); }
+      50%       { filter: drop-shadow(0 0 10px rgba(255,120,120,.9)) drop-shadow(0 0 20px rgba(255,60,60,.55)); transform: scale(1.12); }
+    }
+
     .prox-lote-val {
       font-family: var(--fd);
-      font-size: 22px;
-      font-weight: 800;
-      color: rgba(245,237,214,.35);
+      font-size: 26px;
+      font-weight: 900;
+      color: #FF6B6B;
       text-decoration: line-through;
-      text-decoration-color: rgba(245,237,214,.15);
+      text-decoration-color: #FF4444;
+      text-decoration-thickness: 2px;
     }
     .prox-lote-desc {
       font-family: var(--fa);
       font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(245,237,214,.2);
+      color: rgba(245,237,214,.35);
       margin-left: auto;
     }
     .oferta-aviso {
       font-family: var(--fb);
       font-size: 13px;
-      color: rgba(139,26,26,.8);
       font-style: italic;
       margin-top: 14px;
       line-height: 1.55;
-      color: #E07070;
+      color: #FF8080;
     }
 
     /* ══════════════════════════════════════
@@ -1918,8 +1926,8 @@ src="https://www.facebook.com/tr?id=4272758519604385&ev=PageView&noscript=1"
         <div class="concurso-leg">Remuneração total<br>com benefícios</div>
       </div>
       <div class="concurso-card concurso-card--anim" style="opacity:0;transition:opacity .6s .3s ease, transform .6s .3s ease;">
-        <div class="concurso-val"><span>20%</span></div>
-        <div class="concurso-leg">Da prova é RLM<br>10 de 50 questões</div>
+        <div class="concurso-val"><span>5</span></div>
+        <div class="concurso-leg">Questões de RLM<br>que separam aprovados de reprovados</div>
       </div>
       <div class="concurso-card concurso-card--anim" style="opacity:0;transition:opacity .6s .4s ease, transform .6s .4s ease;">
         <div class="concurso-val"><span>COSEAC</span></div>
@@ -1934,7 +1942,7 @@ src="https://www.facebook.com/tr?id=4272758519604385&ev=PageView&noscript=1"
     </div>
 
     <div class="concurso-alerta reveal">
-      A disciplina de Raciocínio Lógico-Matemático representa <strong>20% da prova</strong>, mas é onde a maioria dos candidatos chega mais vulnerável. Não por falta de inteligência. Por falta de prática específica. Quem nunca treinou o estilo COSEAC entra na prova tentando adivinhar o que a banca quer, em vez de reconhecer o padrão e resolver com segurança.
+      A prova tem 50 questões. <strong>5 delas são de Raciocínio Lógico-Matemático</strong> — e são exatamente essas que a maioria dos candidatos chega mais vulnerável. Não por falta de inteligência. Por falta de prática específica. Em um concurso com centenas de candidatos por vaga, quem acerta as 5 questões de RLM chega na frente. Quem zera, fica fora.
     </div>
 
     <div class="concurso-alento reveal">
@@ -1968,7 +1976,7 @@ src="https://www.facebook.com/tr?id=4272758519604385&ev=PageView&noscript=1"
       <div class="erro-card reveal reveal-d2">
         <div class="erro-num">Erro 02</div>
         <div class="erro-titulo">Ignorar RLM porque "não tem jeito para matemática"</div>
-        <p class="erro-desc">Enquanto deixa RLM de lado, os outros candidatos estão treinando as <strong>mesmas 10 questões que valem 20% da sua prova.</strong></p>
+        <p class="erro-desc">Enquanto deixa RLM de lado, os outros candidatos estão treinando as <strong>mesmas 5 questões que podem definir sua classificação.</strong></p>
       </div>
       <div class="erro-card reveal reveal-d3">
         <div class="erro-num">Erro 03</div>
@@ -2486,11 +2494,11 @@ src="https://www.facebook.com/tr?id=4272758519604385&ev=PageView&noscript=1"
   <div class="wrap--xs">
     <p class="label label--light" style="text-align:center;margin-bottom:18px;">Última chamada</p>
     <h2>
-      <em>A prova cobra 20% em RLM.</em><br>
+      <em>São só 5 questões. Mas são as que decidem.</em><br>
       Por R$&nbsp;47, você chega <strong>preparado.</strong>
     </h2>
     <p>
-      A GCM Maricá paga cerca de R$&nbsp;9.000 por mês. Treinar RLM agora não é gasto. É o investimento mais barato que existe para não deixar 20% da prova nas mãos do acaso.
+      A GCM Maricá paga cerca de R$&nbsp;9.000 por mês. Treinar RLM agora não é gasto. É o investimento mais barato que existe para não deixar 5 questões decisivas nas mãos do acaso.
     </p>
     <a href="https://pay.kiwify.com.br/Hup215l" target="_blank" rel="noopener" class="btn-cta" style="font-size:14px;padding:22px 60px;">Já Me Decidi. Quero Fazer Parte!</a>
     <p class="hero-nota">Acesso imediato &nbsp;·&nbsp; Garantia de 7 dias &nbsp;·&nbsp; Pagamento único</p>
