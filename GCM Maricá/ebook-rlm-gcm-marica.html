@@ -1,0 +1,3459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-book de Questões — Raciocínio Lógico-Matemático — GCM Maricá 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   TOKENS — brandbook GCM Maricá 2026
+══════════════════════════════════════ */
+:root {
+  --azul-marinho:  #0D1F3C;
+  --azul-medio:    #1A3A6B;
+  --azul-claro:    #2E5FAA;
+  --dourado:       #C8A951;
+  --dourado-claro: #E8C96A;
+  --prata:         #D6DDE8;
+  --verde-heraldo: #1A5C3A;
+  --vermelho:      #8B1A1A;
+  --creme:         #F5F0E8;
+  --cinza-quente:  #E8E2D8;
+  --cinza-texto:   #3A3530;
+  --branco:        #FFFFFF;
+
+  --serif-display: 'Playfair Display', 'EB Garamond', Georgia, serif;
+  --serif-body:    'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --serif-fine:    'Cormorant Garamond', Georgia, serif;
+}
+
+/* ══════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #CFCFCF;
+  font-family: var(--serif-body);
+  font-size: 13.5pt;
+  line-height: 1.75;
+  color: var(--cinza-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══════════════════════════════════════
+   PÁGINA — A4 em tela
+══════════════════════════════════════ */
+.pagina {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 20px auto;
+  background: var(--branco);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.22);
+  page-break-after: always;
+}
+
+/* ══════════════════════════════════════
+   IMPRESSÃO
+══════════════════════════════════════ */
+@page {
+  size: 210mm 297mm;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    width: 210mm !important;
+  }
+
+  /* Fundos coloridos sempre impressos */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* SOLUÇÃO CONFIRMADA:
+     .pagina com margin:0 + height:297mm + break-after:page
+     SEM overflow:hidden e SEM min-height nos containers internos = 1 div por folha */
+  .pagina {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+
+  .pagina:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Containers internos: SEM min-height (causaria páginas extras) */
+  .capa,
+  .contracapa-pg,
+  .sumario-pg,
+  .intro-pg,
+  .questoes-pg,
+  .gabaritos-pg,
+  .encerramento-pg {
+    width: 210mm !important;
+    height: 297mm !important;
+    min-height: unset !important;
+    max-height: 297mm !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Corpo cresce para preencher; rodapé fica no fundo */
+  .questoes-corpo,
+  .sumario-corpo,
+  .intro-corpo,
+  .gabaritos-corpo {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .questoes-rodape,
+  .sumario-rodape,
+  .intro-rodape,
+  .gabaritos-rodape {
+    flex-shrink: 0 !important;
+  }
+
+  /* Capa, encerramento e contracapa: centralização herdada */
+  .capa,
+  .encerramento-pg,
+  .contracapa-pg {
+    text-align: center !important;
+  }
+
+  /* ── Compactação para impressão A4 ────────────────────── */
+
+  /* Corpo das questões: padding reduzido */
+  .questoes-corpo {
+    padding: 14px 40px 10px !important;
+  }
+
+  /* Questão: menos margem entre elas */
+  .questao {
+    margin-bottom: 10px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Enunciado: fonte e linha compactos */
+  .questao-enunciado {
+    font-size: 9.5pt !important;
+    line-height: 1.45 !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Alternativas: compactas */
+  .questao-alternativas li {
+    font-size: 9pt !important;
+    line-height: 1.35 !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+  }
+
+  /* Label da banca: menos espaço */
+  .banca-label {
+    margin-bottom: 8px !important;
+  }
+
+  /* Divisor entre bancas: menos espaço */
+  .divisor-bancas {
+    margin: 10px 0 8px !important;
+  }
+
+  /* Rodapés e separadores não quebram */
+  .questoes-rodape,
+  .sumario-rodape,
+  .intro-rodape,
+  .gabaritos-rodape,
+  .secao-header,
+  .secao-cont-header,
+  .banca-label {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Rodapé nunca fica sozinho no topo de página nova */
+  .questoes-rodape,
+  .gabaritos-rodape {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  img {
+    image-rendering: high-quality !important;
+  }
+}
+
+/* ══════════════════════════════════════
+   CAPA
+══════════════════════════════════════ */
+.capa {
+  background: var(--azul-marinho);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.capa-topo {
+  width: 100%;
+  background: var(--dourado);
+  padding: 10px 0;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.capa-topo-txt {
+  font-family: var(--serif-fine);
+  font-size: 9pt;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--azul-marinho);
+  font-weight: 600;
+}
+
+.capa-fundo-detalhe {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 10%, rgba(200,169,81,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 85% 90%, rgba(46,95,170,.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 10% 70%, rgba(200,169,81,.07) 0%, transparent 50%);
+  z-index: 0;
+}
+
+/* Linhas douradas decorativas */
+.capa-linhas {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+  opacity: .07;
+}
+
+.capa-corpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 50px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.capa-logo-gcm {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,.5));
+}
+
+.capa-separador {
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dourado), transparent);
+  margin: 18px auto;
+}
+
+.capa-tag {
+  font-family: var(--serif-fine);
+  font-size: 8.5pt;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 16px;
+}
+
+.capa-titulo {
+  font-family: var(--serif-display);
+  font-size: 34pt;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.capa-titulo em {
+  font-style: italic;
+  color: var(--dourado);
+}
+
+.capa-subtitulo {
+  font-family: var(--serif-fine);
+  font-size: 13pt;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--prata);
+  margin-bottom: 36px;
+  line-height: 1.5;
+}
+
+.capa-foto-prof {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--dourado);
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,.6));
+}
+
+.capa-prof-nome {
+  font-family: var(--serif-display);
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--dourado-claro);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.capa-prof-cargo {
+  font-family: var(--serif-fine);
+  font-size: 9pt;
+  font-style: italic;
+  color: var(--prata);
+}
+
+.capa-badges {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+.capa-badge {
+  background: rgba(200,169,81,.15);
+  border: 1px solid rgba(200,169,81,.4);
+  border-radius: 3px;
+  padding: 5px 14px;
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--dourado-claro);
+}
+
+.capa-rodape {
+  width: 100%;
+  border-top: 1px solid rgba(200,169,81,.25);
+  padding: 14px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.capa-rodape-txt {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  color: rgba(214,221,232,.5);
+  letter-spacing: .08em;
+}
+
+/* ══════════════════════════════════════
+   SUMÁRIO
+══════════════════════════════════════ */
+.sumario-pg {
+  background: var(--azul-medio);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.sumario-header {
+  background: var(--azul-marinho);
+  padding: 42px 52px 32px;
+  border-bottom: 2px solid var(--dourado);
+  position: relative;
+}
+.sumario-header::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; left: 52px;
+  width: 60px; height: 2px;
+  background: var(--dourado-claro);
+}
+
+.sumario-header-tag {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 10px;
+}
+.sumario-header h1 {
+  font-family: var(--serif-display);
+  font-size: 26pt;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.1;
+}
+.sumario-header h1 em {
+  font-style: italic;
+  color: var(--dourado);
+}
+
+.sumario-corpo {
+  flex: 1;
+  padding: 36px 52px 28px;
+}
+
+.sumario-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  margin-bottom: 10px;
+  cursor: default;
+}
+.sumario-item:hover .sumario-linha { opacity: 1; }
+
+.sumario-num {
+  font-family: var(--serif-fine);
+  font-size: 9pt;
+  color: var(--dourado);
+  min-width: 28px;
+  font-weight: 600;
+}
+
+.sumario-titulo-item {
+  font-family: var(--serif-body);
+  font-size: 11pt;
+  color: var(--branco);
+  font-weight: 500;
+}
+.sumario-titulo-item small {
+  font-family: var(--serif-fine);
+  font-size: 8.5pt;
+  font-style: italic;
+  color: var(--prata);
+  font-weight: 400;
+  margin-left: 6px;
+}
+
+.sumario-linha {
+  flex: 1;
+  border-bottom: 1px dotted rgba(200,169,81,.35);
+  margin: 0 10px 4px;
+  opacity: .7;
+  transition: opacity .2s;
+}
+
+.sumario-pg-num {
+  font-family: var(--serif-fine);
+  font-size: 10pt;
+  color: var(--dourado);
+  min-width: 22px;
+  text-align: right;
+}
+
+.sumario-separador {
+  margin: 16px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sumario-separador-linha {
+  flex: 1;
+  height: 1px;
+  background: rgba(200,169,81,.2);
+}
+.sumario-separador-txt {
+  font-family: var(--serif-fine);
+  font-size: 7.5pt;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: rgba(200,169,81,.6);
+}
+
+.sumario-rodape {
+  padding: 16px 52px;
+  border-top: 1px solid rgba(200,169,81,.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sumario-rodape-txt {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  font-style: italic;
+  color: rgba(214,221,232,.5);
+}
+
+/* ══════════════════════════════════════
+   INTRODUÇÃO (fundo azul-marinho)
+══════════════════════════════════════ */
+.intro-pg {
+  background: var(--azul-marinho);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-header {
+  padding: 42px 52px 28px;
+  border-bottom: 1px solid rgba(200,169,81,.3);
+}
+.intro-header-tag {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 10px;
+}
+.intro-header h2 {
+  font-family: var(--serif-display);
+  font-size: 22pt;
+  font-weight: 700;
+  color: var(--branco);
+}
+
+.intro-corpo {
+  flex: 1;
+  padding: 32px 52px;
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+}
+
+.intro-foto-col {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 140px;
+}
+
+.intro-foto {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--dourado);
+}
+
+.intro-prof-nome {
+  font-family: var(--serif-display);
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: var(--dourado-claro);
+  text-align: center;
+  letter-spacing: .06em;
+}
+.intro-prof-cargo {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  font-style: italic;
+  color: var(--prata);
+  text-align: center;
+}
+
+.intro-texto-col {
+  flex: 1;
+}
+
+.intro-texto-col p {
+  font-family: var(--serif-body);
+  font-size: 11.5pt;
+  line-height: 1.8;
+  color: var(--prata);
+  margin-bottom: 14px;
+}
+.intro-texto-col p strong {
+  color: var(--branco);
+  font-weight: 600;
+}
+
+.intro-como-usar {
+  margin-top: 22px;
+  background: rgba(200,169,81,.08);
+  border-left: 3px solid var(--dourado);
+  border-radius: 0 4px 4px 0;
+  padding: 16px 20px;
+}
+.intro-como-usar h3 {
+  font-family: var(--serif-display);
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--dourado);
+  margin-bottom: 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.intro-como-usar ul {
+  list-style: none;
+  padding: 0;
+}
+.intro-como-usar li {
+  font-family: var(--serif-body);
+  font-size: 10.5pt;
+  color: var(--prata);
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 5px;
+}
+.intro-como-usar li::before {
+  content: '›';
+  position: absolute;
+  left: 6px;
+  color: var(--dourado);
+  font-weight: 700;
+}
+
+.intro-rodape {
+  padding: 14px 52px;
+  border-top: 1px solid rgba(200,169,81,.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ══════════════════════════════════════
+   PÁGINAS DE QUESTÕES (fundo branco)
+══════════════════════════════════════ */
+.questoes-pg {
+  background: var(--branco);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Faixa de topo de cada seção */
+.secao-header {
+  background: var(--azul-marinho);
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.secao-header-num {
+  background: var(--dourado);
+  color: var(--azul-marinho);
+  font-family: var(--serif-display);
+  font-size: 10pt;
+  font-weight: 700;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.secao-header-info {
+  flex: 1;
+}
+.secao-header-tag {
+  font-family: var(--serif-fine);
+  font-size: 7.5pt;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 2px;
+}
+.secao-header h2 {
+  font-family: var(--serif-display);
+  font-size: 14pt;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.1;
+}
+
+/* Continuação de seção sem faixa grande */
+.secao-cont-header {
+  background: var(--azul-marinho);
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.secao-cont-label {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--dourado);
+}
+.secao-cont-titulo {
+  font-family: var(--serif-display);
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--prata);
+}
+.secao-cont-sep {
+  width: 1px;
+  height: 16px;
+  background: rgba(200,169,81,.4);
+}
+
+.questoes-corpo {
+  flex: 1;
+  padding: 24px 40px 16px;
+}
+
+/* Faixa interna "banca principal" / "outras bancas" */
+.banca-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+.banca-label-badge {
+  font-family: var(--serif-fine);
+  font-size: 7.5pt;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+.banca-label-badge.principal {
+  background: var(--azul-marinho);
+  color: var(--dourado);
+}
+.banca-label-badge.outras {
+  background: var(--cinza-quente);
+  color: var(--azul-medio);
+  border: 1px solid rgba(26,58,107,.2);
+}
+.banca-label-linha {
+  flex: 1;
+  height: 1px;
+  background: var(--cinza-quente);
+}
+
+/* Questão individual */
+.questao {
+  margin-bottom: 20px;
+  page-break-inside: avoid;
+}
+.questao-enunciado {
+  font-family: var(--serif-body);
+  font-size: 10.5pt;
+  line-height: 1.7;
+  color: var(--cinza-texto);
+  margin-bottom: 8px;
+}
+.questao-enunciado .questao-num {
+  font-family: var(--serif-display);
+  font-weight: 700;
+  color: var(--azul-marinho);
+}
+.questao-enunciado .fonte {
+  font-family: var(--serif-fine);
+  font-size: 9pt;
+  font-style: italic;
+  color: #888;
+}
+.questao-alternativas {
+  list-style: none;
+  padding-left: 12px;
+}
+.questao-alternativas li {
+  font-family: var(--serif-body);
+  font-size: 10pt;
+  color: var(--cinza-texto);
+  line-height: 1.55;
+  padding: 2px 0 2px 22px;
+  position: relative;
+}
+.questao-alternativas li span.letra {
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--azul-marinho);
+  font-family: var(--serif-display);
+}
+
+/* Gabarito */
+.gabarito-box {
+  background: var(--azul-marinho);
+  border-radius: 4px;
+  padding: 10px 18px;
+  margin: 14px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  page-break-inside: avoid;
+}
+.gabarito-label {
+  font-family: var(--serif-fine);
+  font-size: 7.5pt;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.gabarito-itens {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.gabarito-item {
+  font-family: var(--serif-display);
+  font-size: 9.5pt;
+  color: var(--branco);
+}
+.gabarito-item span {
+  font-weight: 700;
+  color: var(--dourado-claro);
+}
+
+/* Divisor entre banca principal e outras bancas */
+.divisor-bancas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 14px;
+}
+.divisor-bancas-linha {
+  flex: 1;
+  height: 1px;
+  background: var(--cinza-quente);
+}
+.divisor-bancas-txt {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+/* Rodapé de páginas de questões */
+.questoes-rodape {
+  padding: 10px 40px;
+  border-top: 1px solid var(--cinza-quente);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--branco);
+}
+.questoes-rodape-esq {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rodape-logo-mini {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.rodape-txt {
+  font-family: var(--serif-fine);
+  font-size: 7.5pt;
+  color: #bbb;
+  font-style: italic;
+}
+.rodape-pg {
+  font-family: var(--serif-display);
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--azul-marinho);
+}
+
+/* ══════════════════════════════════════
+   PÁGINA DE GABARITOS
+══════════════════════════════════════ */
+.gabaritos-pg {
+  background: var(--azul-medio);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+}
+
+.gabaritos-header {
+  background: var(--azul-marinho);
+  padding: 36px 52px 28px;
+  border-bottom: 2px solid var(--dourado);
+  position: relative;
+}
+.gabaritos-header::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; left: 52px;
+  width: 60px; height: 2px;
+  background: var(--dourado-claro);
+}
+.gabaritos-header-tag {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 8px;
+}
+.gabaritos-header h1 {
+  font-family: var(--serif-display);
+  font-size: 24pt;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.1;
+}
+.gabaritos-header h1 em {
+  font-style: italic;
+  color: var(--dourado);
+}
+
+.gabaritos-corpo {
+  flex: 1;
+  padding: 28px 52px 20px;
+}
+
+.gab-pg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 32px;
+}
+
+.gab-pg-assunto {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(200,169,81,.2);
+  border-radius: 6px;
+  padding: 14px 16px 12px;
+}
+
+.gab-pg-assunto-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(200,169,81,.25);
+}
+.gab-pg-num {
+  background: var(--dourado);
+  color: var(--azul-marinho);
+  font-family: var(--serif-display);
+  font-size: 8pt;
+  font-weight: 700;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gab-pg-titulo {
+  font-family: var(--serif-display);
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--branco);
+}
+
+.gab-pg-bloco {
+  margin-bottom: 8px;
+}
+.gab-pg-banca {
+  display: block;
+  font-family: var(--serif-fine);
+  font-size: 7pt;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 4px;
+}
+.gab-pg-itens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.gab-pg-itens .gabarito-item {
+  font-family: var(--serif-display);
+  font-size: 9pt;
+  color: var(--branco);
+}
+.gab-pg-itens .gabarito-item span {
+  font-weight: 700;
+  color: var(--dourado-claro);
+}
+
+.gabaritos-rodape {
+  padding: 14px 52px;
+  border-top: 1px solid rgba(200,169,81,.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gabaritos-rodape-txt {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  font-style: italic;
+  color: rgba(214,221,232,.5);
+}
+.gabaritos-rodape-num {
+  font-family: var(--serif-display);
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--dourado);
+}
+
+/* ══════════════════════════════════════
+   ENCERRAMENTO
+══════════════════════════════════════ */
+.encerramento-pg {
+  background: var(--azul-marinho);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.encerramento-pg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(200,169,81,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgba(46,95,170,.12) 0%, transparent 50%);
+}
+.encerramento-corpo {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+}
+.encerramento-ornamento {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--dourado), transparent);
+  margin: 0 auto 28px;
+}
+.encerramento-tag {
+  font-family: var(--serif-fine);
+  font-size: 8pt;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 20px;
+}
+.encerramento-titulo {
+  font-family: var(--serif-display);
+  font-size: 24pt;
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.encerramento-titulo em {
+  color: var(--dourado);
+  font-style: italic;
+}
+.encerramento-subtitulo {
+  font-family: var(--serif-fine);
+  font-size: 11pt;
+  font-style: italic;
+  color: var(--prata);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.encerramento-linha {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dourado), transparent);
+  margin: 0 auto 32px;
+}
+.encerramento-foto {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--dourado);
+  margin-bottom: 14px;
+}
+.encerramento-prof-nome {
+  font-family: var(--serif-display);
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--dourado-claro);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.encerramento-redes {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.encerramento-rede {
+  font-family: var(--serif-fine);
+  font-size: 9.5pt;
+  color: var(--prata);
+  text-decoration: none;
+  padding: 6px 18px;
+  border: 1px solid rgba(200,169,81,.35);
+  border-radius: 3px;
+  letter-spacing: .06em;
+}
+
+/* ══════════════════════════════════════
+   CONTRACAPA
+══════════════════════════════════════ */
+.contracapa-pg {
+  background: var(--azul-marinho);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.contracapa-pg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(46,95,170,.15) 0%, transparent 70%);
+}
+
+.contracapa-corpo {
+  position: relative; z-index: 2;
+  max-width: 440px;
+}
+
+.contracapa-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 32px;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,.5));
+}
+.contracapa-separador {
+  width: 50px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dourado), transparent);
+  margin: 0 auto 28px;
+}
+.contracapa-txt {
+  font-family: var(--serif-body);
+  font-size: 11pt;
+  color: var(--prata);
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+.contracapa-txt strong { color: var(--branco); }
+.contracapa-nome {
+  font-family: var(--serif-display);
+  font-size: 14pt;
+  font-weight: 700;
+  color: var(--dourado);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.contracapa-nome-sub {
+  font-family: var(--serif-fine);
+  font-size: 9pt;
+  font-style: italic;
+  color: var(--prata);
+  margin-bottom: 30px;
+}
+.contracapa-rodape-barra {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 10px;
+  background: linear-gradient(90deg, var(--dourado), var(--dourado-claro), var(--dourado));
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 1 — CAPA
+════════════════════════════════════════════ -->
+<div class="pagina">
+
+  <div class="capa">
+    <div class="capa-fundo-detalhe"></div>
+
+    <div class="capa-topo">
+      <span class="capa-topo-txt">Prof. Walter Brotto · Concursos Públicos</span>
+    </div>
+
+    <div class="capa-corpo">
+      <img class="capa-logo-gcm"
+           src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png"
+           alt="Brasão Guarda Municipal de Maricá">
+
+      <div class="capa-separador"></div>
+
+      <div class="capa-tag">Guarda Civil Municipal de Maricá · 2026</div>
+
+      <h1 class="capa-titulo">
+        <em>111 Questões</em><br>
+        de Raciocínio Lógico
+      </h1>
+
+      <p class="capa-subtitulo">
+        Questões da banca COSEAC/UFF e bancas do mesmo padrão<br>
+        organizadas por assunto — com gabarito
+      </p>
+
+      <div class="capa-separador"></div>
+
+      <img class="capa-foto-prof"
+           src="037.png"
+           alt="Prof. Walter Brotto">
+
+      <div class="capa-prof-nome">Prof. Walter Brotto</div>
+      <div class="capa-prof-cargo">Especialista em Matemática e Raciocínio Lógico para Concursos</div>
+
+      <div class="capa-badges">
+        <span class="capa-badge">111 Questões</span>
+        <span class="capa-badge">9 Assuntos</span>
+        <span class="capa-badge">Gabarito Incluso</span>
+        <span class="capa-badge">Padrão COSEAC</span>
+      </div>
+
+    <div class="capa-rodape">
+      <span class="capa-rodape-txt">Material didático — uso exclusivo do aluno</span>
+      <span class="capa-rodape-txt">GCM Maricá 2026</span>
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 2 — SUMÁRIO
+════════════════════════════════════════════ --></div>
+</div>
+<div class="pagina">
+
+  <div class="sumario-pg">
+    <div class="sumario-header">
+      <div class="sumario-header-tag">E-book de Questões · RLM · GCM Maricá 2026</div>
+      <h1>Sumário <em>de Conteúdo</em></h1>
+    </div>
+
+    <div class="sumario-corpo">
+
+      <div class="sumario-separador">
+        <div class="sumario-separador-linha"></div>
+        <span class="sumario-separador-txt">Abertura</span>
+        <div class="sumario-separador-linha"></div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">—</span>
+        <span class="sumario-titulo-item">Introdução <small>Mensagem do Prof. Walter Brotto</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">3</span>
+      </div>
+
+      <div class="sumario-separador">
+        <div class="sumario-separador-linha"></div>
+        <span class="sumario-separador-txt">Questões por Assunto</span>
+        <div class="sumario-separador-linha"></div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">01</span>
+        <span class="sumario-titulo-item">Sequências Lógicas <small>6 + 8 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">4–6</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">02</span>
+        <span class="sumario-titulo-item">Conjuntos <small>6 + 10 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">7–9</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">03</span>
+        <span class="sumario-titulo-item">Razão, Proporção e Regra de Três <small>7 + 10 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">10–13</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">04</span>
+        <span class="sumario-titulo-item">Análise Combinatória <small>6 + 10 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">14–16</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">05</span>
+        <span class="sumario-titulo-item">Princípio da Casa dos Pombos <small>7 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">17–18</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">06</span>
+        <span class="sumario-titulo-item">Probabilidade <small>13 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">19–21</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">07</span>
+        <span class="sumario-titulo-item">Operações Básicas <small>9 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">22–23</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">08</span>
+        <span class="sumario-titulo-item">Proposições Lógicas <small>7 + 12 questões</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">24–27</span>
+      </div>
+
+      <div class="sumario-separador">
+        <div class="sumario-separador-linha"></div>
+        <span class="sumario-separador-txt">Encerramento</span>
+        <div class="sumario-separador-linha"></div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">—</span>
+        <span class="sumario-titulo-item">Gabaritos <small>Respostas por assunto</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">28</span>
+      </div>
+
+      <div class="sumario-item">
+        <span class="sumario-num">—</span>
+        <span class="sumario-titulo-item">Encerramento <small>Próximos passos</small></span>
+        <span class="sumario-linha"></span>
+        <span class="sumario-pg-num">29</span>
+      </div>
+
+    <div class="sumario-rodape">
+      <span class="sumario-rodape-txt">Prof. Walter Brotto — GCM Maricá 2026</span>
+      <span class="sumario-rodape-txt" style="color:var(--dourado);font-style:normal;font-family:var(--serif-display);font-size:9pt;font-weight:700;">2</span>
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 3 — INTRODUÇÃO
+════════════════════════════════════════════ --></div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="intro-pg">
+    <div class="intro-header">
+      <div class="intro-header-tag">Introdução</div>
+      <h2>Mensagem do Professor</h2>
+    </div>
+
+    <div class="intro-corpo">
+      <div class="intro-foto-col">
+        <img class="intro-foto" src="037.png" alt="Prof. Walter Brotto">
+        <div class="intro-prof-nome">Prof. Walter<br>Brotto</div>
+        <div class="intro-prof-cargo">Matemática e RLM<br>para Concursos</div>
+
+      <div class="intro-texto-col">
+        <p>Fala, futuro aprovado(a)!</p>
+        <p>Fico feliz que você esteja aqui — e já quero te dizer uma coisa: <strong>você tomou a decisão certa.</strong></p>
+        <p>Enquanto a maioria dos candidatos ainda está esperando para começar, você já está treinando. E é exatamente essa diferença que aparece no resultado final.</p>
+        <p>Esse e-book reúne <strong>111 questões de Raciocínio Lógico</strong> organizadas por assunto — com questões da banca COSEAC/UFF (responsável pelo concurso GCM Maricá) e de outras bancas que cobram o mesmo padrão de raciocínio.</p>
+        <p>A lógica é simples: <strong>quem resolve mais questões, erra menos na prova.</strong> Simples assim.</p>
+
+        <div class="intro-como-usar">
+          <h3>Como usar este material</h3>
+          <ul>
+            <li>Questões da banca principal (COSEAC) — com gabarito</li>
+            <li>Questões de outras bancas no mesmo padrão — com gabarito</li>
+            <li>Comece pelo assunto em que você sente mais dificuldade</li>
+            <li>Resolva <em>sem olhar o gabarito</em>, confira depois</li>
+            <li>Se errou, entenda onde o raciocínio falhou antes de avançar</li>
+          </ul>
+        </div>
+
+        <p style="margin-top:16px;">É assim que a evolução acontece de verdade.</p>
+        <p>Bons estudos — e bons resultados.</p>
+      </div>
+
+    <div class="intro-rodape" style="padding:14px 52px;border-top:1px solid rgba(200,169,81,.2);display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:var(--serif-fine);font-size:8pt;font-style:italic;color:rgba(214,221,232,.5);">Prof. Walter Brotto — GCM Maricá 2026</span>
+      <span style="font-family:var(--serif-display);font-size:9pt;font-weight:700;color:var(--dourado);">3</span>
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 4 — SEQUÊNCIAS LÓGICAS (banca principal)
+════════════════════════════════════════════ --></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">01</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 01 · Raciocínio Lógico-Matemático</div>
+        <h2>Sequências Lógicas</h2>
+      </div>
+      <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM" style="width:36px;height:36px;filter:brightness(10);">
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC 2025)</span> Em relação ao horário de trabalho de seis funcionários (Ary, Luís, Paulo, Caio, José, Pedro), sabe-se que: Ary chegou às 8 horas e antes de Luís e Paulo. Paulo chegou antes de José. Caio e Pedro chegaram antes de Ary. José não foi o último a chegar e Caio não foi o primeiro. A quarta pessoa a chegar foi:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Paulo, que chegou após 8 horas.</li>
+          <li><span class="letra">B)</span> José, que chegou após 8 horas.</li>
+          <li><span class="letra">C)</span> Luís, que chegou após 8 horas.</li>
+          <li><span class="letra">D)</span> Caio, que chegou antes de 8 horas.</li>
+          <li><span class="letra">E)</span> Ary, que chegou às 8 horas.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC – GCM Maricá)</span> Em uma sequência de triângulos, há uma regra lógica envolvendo os números nos lados e dentro dos triângulos. O número na base é obtido a partir de operações matemáticas envolvendo os outros três. De acordo com a lei de formação, o número na base do quarto triângulo é o:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 28</li>
+          <li><span class="letra">B)</span> 30</li>
+          <li><span class="letra">C)</span> 32</li>
+          <li><span class="letra">D)</span> 35</li>
+          <li><span class="letra">E)</span> 37</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> Observe a seguinte sequência lógica: A2H — B4G — C8F — D16E. Seguindo a mesma lei de formação, o próximo elemento da sequência será:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> E32D.</li>
+          <li><span class="letra">B)</span> E32F.</li>
+          <li><span class="letra">C)</span> E64D.</li>
+          <li><span class="letra">D)</span> E64E.</li>
+          <li><span class="letra">E)</span> E64F.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(COSEAC)</span> O próximo número que completaria a sequência lógica 1, 4, 3, 16, 5, ..., é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 25.</li>
+          <li><span class="letra">B)</span> 36.</li>
+          <li><span class="letra">C)</span> 7.</li>
+          <li><span class="letra">D)</span> 49.</li>
+          <li><span class="letra">E)</span> 81.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(COSEAC)</span> A sequência: 34(6)17 — 81(27)9 — 150(30)15 — 85(?)17 obedece a uma determinada lei de formação. O número que está faltando é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 10.</li>
+          <li><span class="letra">B)</span> 12.</li>
+          <li><span class="letra">C)</span> 15.</li>
+          <li><span class="letra">D)</span> 16.</li>
+          <li><span class="letra">E)</span> 22.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">6.</span> <span class="fonte">(COSEAC)</span> As palavras apresentadas a seguir estão em sequência, obedecendo a uma determinada regra lógica: MEL, BELO, ANITA, METEORO, ..... Dentre as opções, a que poderia completar a sequência é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> MÁQUINA;</li>
+          <li><span class="letra">B)</span> BELEZA;</li>
+          <li><span class="letra">C)</span> ANTECEDENTE;</li>
+          <li><span class="letra">D)</span> LIVREIRO;</li>
+          <li><span class="letra">E)</span> PADARIA.</li>
+        </ul>
+      </div>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Sequências Lógicas</span>
+      </div>
+      <span class="rodape-pg">4</span>
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 5 — SEQUÊNCIAS LÓGICAS (outras bancas)
+════════════════════════════════════════════ -->
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 01</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Sequências Lógicas</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(FUNDATEC)</span> A sequência de palavras APEGO – EQUINO – IRÔNICO segue uma lógica. Qual das palavras abaixo ocuparia o quarto lugar dessa sequência?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> ORGULHA.</li>
+          <li><span class="letra">B)</span> INFIMA.</li>
+          <li><span class="letra">C)</span> OSTENTAR.</li>
+          <li><span class="letra">D)</span> IPIOCA.</li>
+          <li><span class="letra">E)</span> AMISTOSO.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(FUNDATEC)</span> Considere a sequência lógica a seguir: 1, 1, 2, 3, 5, 8, 13, ... É possível afirmar que o próximo número é dado por:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 14.</li>
+          <li><span class="letra">B)</span> 20.</li>
+          <li><span class="letra">C)</span> 21.</li>
+          <li><span class="letra">D)</span> 22.</li>
+          <li><span class="letra">E)</span> 30.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(AVANÇÁ)</span> Considere a sequência: P, 8, Q, 16, R, 24, (...). Qual é o 7º termo dessa sequência?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 32.</li>
+          <li><span class="letra">B)</span> S.</li>
+          <li><span class="letra">C)</span> 40.</li>
+          <li><span class="letra">D)</span> T.</li>
+          <li><span class="letra">E)</span> Nenhuma das alternativas.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(FUNDATEC)</span> Em uma sessão de cinema, havia 5 lugares lado a lado livres. Então Daniel se sentou entre Márcio e César; Márcio após Joana; e César acomodou-se ao lado de Lívia e de Daniel. Considerando a ordem crescente da esquerda para a direita, a ordem em que os cinco amigos se acomodaram foi:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Márcio – Daniel – Joana – César – Lívia.</li>
+          <li><span class="letra">B)</span> Joana – César – Márcio – Lívia – Daniel.</li>
+          <li><span class="letra">C)</span> Lívia – Márcio – Daniel – César – Joana.</li>
+          <li><span class="letra">D)</span> Joana – Lívia – Márcio – Daniel – César.</li>
+          <li><span class="letra">E)</span> Joana – Márcio – Daniel – César – Lívia.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Sequências Lógicas</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 01</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Sequências Lógicas</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(AVANÇÁ)</span> Marcos observou a ordem de chegada de amigos: Carlos chegou exatamente antes de Diego; Diego chegou antes de Bianca; Ana chegou logo depois de Bianca; Erick foi o último a chegar. Quem foi a terceira pessoa a chegar?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Ana.</li>
+          <li><span class="letra">B)</span> Bianca.</li>
+          <li><span class="letra">C)</span> Carlos.</li>
+          <li><span class="letra">D)</span> Diego.</li>
+          <li><span class="letra">E)</span> Erick.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(IDECAN)</span> João tem três irmãos: Paulo, Fernando e Roberto, sendo que: Paulo é mais velho que João; Fernando é mais novo que Roberto; Roberto é mais velho que João. Diante disso, é correto dizer que:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Fernando é o mais novo.</li>
+          <li><span class="letra">B)</span> João é o mais novo.</li>
+          <li><span class="letra">C)</span> Paulo é o mais velho.</li>
+          <li><span class="letra">D)</span> João não é o mais novo.</li>
+          <li><span class="letra">E)</span> Paulo não é o mais novo.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(AOCP)</span> Se a sequência (P, E, N, A, L, P, E, N, A, L, P, ...) for escrita até o 1000º termo, o 644º e o 735º termos são, respectivamente:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> A e L.</li>
+          <li><span class="letra">B)</span> P e N.</li>
+          <li><span class="letra">C)</span> E e P.</li>
+          <li><span class="letra">D)</span> N e A.</li>
+          <li><span class="letra">E)</span> E e L.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(IDECAN)</span> A palavra ABACATE está para 738, assim como BANANA está para 636 e MELANCIA está para 848. Da mesma maneira, GROSELHA está para:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 848.</li>
+          <li><span class="letra">B)</span> 853.</li>
+          <li><span class="letra">C)</span> 868.</li>
+          <li><span class="letra">D)</span> 856.</li>
+          <li><span class="letra">E)</span> 865.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Sequências Lógicas</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">02</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 02 · Raciocínio Lógico-Matemático</div>
+        <h2>Conjuntos</h2>
+      </div>
+      <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM" style="width:36px;height:36px;filter:brightness(10);">
+    </div>
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Em pesquisa com um grupo de policiais, 12 responderam SIM à primeira pergunta, 8 responderam SIM à segunda, 5 responderam SIM às duas e 6 responderam NÃO a ambas. O número total de policiais pesquisados foi:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 19.</li>
+          <li><span class="letra">B)</span> 20.</li>
+          <li><span class="letra">C)</span> 21.</li>
+          <li><span class="letra">D)</span> 26.</li>
+          <li><span class="letra">E)</span> 31.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Os conjuntos X = {3,4,5,7,16,17} e Y = {1,2,3,5,6,9,10,17}. O conjunto Y – X é dado por:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {3,5,17}</li>
+          <li><span class="letra">B)</span> {4,7,16}</li>
+          <li><span class="letra">C)</span> {–4, –7, –16}</li>
+          <li><span class="letra">D)</span> {1,2,4,7,16}</li>
+          <li><span class="letra">E)</span> {1,2,6,9,10}</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC – GCM Maricá)</span> Um conjunto A é formado pelas letras da palavra PROFESSOR e um conjunto B pelas letras da palavra SALÁRIO. O número de letras do conjunto formado pela união desses dois conjuntos é igual a:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 9</li>
+          <li><span class="letra">B)</span> 12</li>
+          <li><span class="letra">C)</span> 14</li>
+          <li><span class="letra">D)</span> 15</li>
+          <li><span class="letra">E)</span> 16</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(COSEAC)</span> Um grupo de 500 estudantes participa de uma pesquisa. 200 estudam Física, 240 estudam Matemática e 80 estudam as duas. Se um estudante for sorteado, a probabilidade de que não estude nenhuma das duas é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 14%.</li>
+          <li><span class="letra">B)</span> 28%.</li>
+          <li><span class="letra">C)</span> 36%.</li>
+          <li><span class="letra">D)</span> 45%.</li>
+          <li><span class="letra">E)</span> 50%.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(COSEAC)</span> Sobre um grupo de pessoas: 30 são homens com até 35 anos; 20 são homens acima de 35 anos; 40 são mulheres com até 35 anos; 12 são mulheres acima de 35 anos. O número de pessoas acima de 35 anos ou mulheres é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 72.</li>
+          <li><span class="letra">B)</span> 52.</li>
+          <li><span class="letra">C)</span> 30.</li>
+          <li><span class="letra">D)</span> 32.</li>
+          <li><span class="letra">E)</span> 12.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">6.</span> <span class="fonte">(COSEAC)</span> A diferença simétrica X △ Y = (X–Y) ∪ (Y–X). Se X = {1,2,3,4} e Y = {3,4,5,6,7}, então X △ Y é o conjunto:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {1,2,3,4,5,6,7}</li>
+          <li><span class="letra">B)</span> {1,2,3,5,6,7}</li>
+          <li><span class="letra">C)</span> {1,2,4,5,6,7}</li>
+          <li><span class="letra">D)</span> {1,2,5,6,7}</li>
+          <li><span class="letra">E)</span> {1,2,3,4,7}</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Conjuntos</span>
+      </div>
+      <span class="rodape-pg">7</span>
+    </div>
+</div>
+
+<!-- Conjuntos — outras bancas --></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 02</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Conjuntos</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(AMAUC)</span> Numa sala com 20 crianças, 13 gostam de jogar bola, 12 gostam de pular corda e 5 gostam das duas. Quantas crianças gostam só de jogar bola?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 4.</li>
+          <li><span class="letra">B)</span> 8.</li>
+          <li><span class="letra">C)</span> 5.</li>
+          <li><span class="letra">D)</span> 3.</li>
+          <li><span class="letra">E)</span> 6.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(NOSSO RUMO)</span> Seja X = {3,4,7,8,9} e Y = {1,2,3}. Determine (X ∪ Y).</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {3}</li>
+          <li><span class="letra">B)</span> {1,2,3,7,8,9}</li>
+          <li><span class="letra">C)</span> {1,2}</li>
+          <li><span class="letra">D)</span> {1,2,3,4,7,8,9}</li>
+          <li><span class="letra">E)</span> {7,8,9}</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(DARWIN)</span> Em pesquisa com 100 pessoas: 60 gostam de futebol, 40 de basquete, 20 de ambos. Quantas não gostam de nenhum?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 0.</li>
+          <li><span class="letra">B)</span> 20.</li>
+          <li><span class="letra">C)</span> 40.</li>
+          <li><span class="letra">D)</span> 60.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(IDECAN)</span> Dados A = {–2,–1,0,1,5,7,8} e B = {–2,1,2,3,4,5,6,7,8}, o conjunto A ∩ B é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {–1,0}.</li>
+          <li><span class="letra">B)</span> {2,3,4,6}.</li>
+          <li><span class="letra">C)</span> {–2,1,5,7,8}.</li>
+          <li><span class="letra">D)</span> {–2,–1,0,1,2,3,4,5,6,7,8}.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(FUNDATEC)</span> Uma empresa tem 670 funcionários: 168 falam inglês e espanhol, 325 falam inglês e 280 não falam nenhuma língua estrangeira. Quantos falam espanhol?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 65.</li>
+          <li><span class="letra">B)</span> 103.</li>
+          <li><span class="letra">C)</span> 157.</li>
+          <li><span class="letra">D)</span> 233.</li>
+          <li><span class="letra">E)</span> 245.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Conjuntos</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 02</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Conjuntos</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COMENTAX)</span> A = {2,4,6,8,10}, B = {4,6,8,12,14}, C = {1,4,7,10,13}. Qual é o resultado de (A ∪ B) – C?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {2,6,8,12,14}.</li>
+          <li><span class="letra">B)</span> {2,6,8,12}.</li>
+          <li><span class="letra">C)</span> {2,6,8,14}.</li>
+          <li><span class="letra">D)</span> {2,8,12,14}.</li>
+          <li><span class="letra">E)</span> {2,4,6,8,10,12,14}.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(IBADE)</span> A = {1,2,3} e B = {3,4,5}. Calcule A – B.</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {3}.</li>
+          <li><span class="letra">B)</span> {}.</li>
+          <li><span class="letra">C)</span> {1,2}.</li>
+          <li><span class="letra">D)</span> {1,2,3,4,5}.</li>
+          <li><span class="letra">E)</span> {4,5}.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(IDECAN)</span> A = {0,1,2,3,4,5} e B = {–2,–1,0,3,5,6}. A diferença A – B é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {1,2}.</li>
+          <li><span class="letra">B)</span> {1,2,4}.</li>
+          <li><span class="letra">C)</span> {0,3,5}.</li>
+          <li><span class="letra">D)</span> {–1,–2,6}.</li>
+          <li><span class="letra">E)</span> {0,3}.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(CPCON)</span> Dados X = {a,b,c,d} e Y = {c,d,e,f}, qual é o conjunto X △ Y?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {a,b,e,f}.</li>
+          <li><span class="letra">B)</span> {c,d}.</li>
+          <li><span class="letra">C)</span> {a,b}.</li>
+          <li><span class="letra">D)</span> {e,f}.</li>
+          <li><span class="letra">E)</span> {a,b,c,d,e,f}.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(UNIFIL)</span> A = {1,2,3,4,5} e B = {0,2,4,6,8,10}. O conjunto B – A é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> {0,1,3,5}.</li>
+          <li><span class="letra">B)</span> {0,6,8,10}.</li>
+          <li><span class="letra">C)</span> {1,3,5}.</li>
+          <li><span class="letra">D)</span> {2,4}.</li>
+          <li><span class="letra">E)</span> {6,8}.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Conjuntos</span>
+      </div>
+</div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">03</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 03 · Raciocínio Lógico-Matemático</div>
+        <h2>Razão, Proporção e Regra de Três</h2>
+      </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Dez amigos organizaram uma festa e combinaram dividir a despesa igualmente. Dois não puderam participar e a despesa de cada um aumentou R$ 17,00. A despesa total da festa foi de:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> R$ 450,00</li>
+          <li><span class="letra">B)</span> R$ 540,00</li>
+          <li><span class="letra">C)</span> R$ 680,00</li>
+          <li><span class="letra">D)</span> R$ 720,00</li>
+          <li><span class="letra">E)</span> R$ 850,00</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Uma embalagem comporta 15 empadas ou 20 brigadeiros. Um cliente pediu 6 empadas e vai completar com brigadeiros. Quantos brigadeiros a embalagem ainda comporta?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 8.</li>
+          <li><span class="letra">B)</span> 9.</li>
+          <li><span class="letra">C)</span> 10.</li>
+          <li><span class="letra">D)</span> 11.</li>
+          <li><span class="letra">E)</span> 12.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> Uma fábrica produz 400 camisetas em 8 horas com 5 máquinas. Para produzir 600 camisetas em 10 horas, quantas máquinas são necessárias?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 6</li>
+          <li><span class="letra">B)</span> 7</li>
+          <li><span class="letra">C)</span> 8</li>
+          <li><span class="letra">D)</span> 9</li>
+          <li><span class="letra">E)</span> 10</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(COSEAC)</span> Uma torneira enche uma caixa d'água em 8 horas. Quatro torneiras de mesma vazão, abertas simultaneamente, encheriam o mesmo tanque em:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 5 h</li>
+          <li><span class="letra">B)</span> 4 h</li>
+          <li><span class="letra">C)</span> 3 h</li>
+          <li><span class="letra">D)</span> 2 h</li>
+          <li><span class="letra">E)</span> 1 h</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Razão, Proporção e Regra de Três</span>
+      </div>
+</div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 03</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Razão, Proporção e Regra de Três</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Um caminhoneiro a 80 km/h percorreu certa distância em 10 dias, viajando 6 horas por dia. Repetindo o percurso a 60 km/h e 5 horas por dia, ele levará:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 12 dias.</li>
+          <li><span class="letra">B)</span> 14 dias.</li>
+          <li><span class="letra">C)</span> 15 dias.</li>
+          <li><span class="letra">D)</span> 16 dias.</li>
+          <li><span class="letra">E)</span> 18 dias.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Um Agente verifica e carimba 50 cadernetas em 5 minutos. Para verificar 750 cadernetas, ele deverá concluir a tarefa em:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 15 minutos.</li>
+          <li><span class="letra">B)</span> 1 hora e 15 minutos.</li>
+          <li><span class="letra">C)</span> 250 minutos.</li>
+          <li><span class="letra">D)</span> 750 minutos.</li>
+          <li><span class="letra">E)</span> 2 horas e 20 minutos.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> 24 profissionais concluem uma tarefa em 5 dias. Para a mesma tarefa em 3 dias, com a mesma jornada, quantos profissionais a mais devem ser contratados?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 8</li>
+          <li><span class="letra">B)</span> 16</li>
+          <li><span class="letra">C)</span> 40</li>
+          <li><span class="letra">D)</span> 42</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Razão, Proporção e Regra de Três</span>
+      </div>
+</div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 03</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Razão, Proporção e Regra de Três</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(OBJETIVA)</span> Uma fábrica produz 500 pacotes em 4h, com 6 máquinas e 8 operários. Quantos pacotes produzirá em 6h, com 10 máquinas e 12 operários?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1.625</li>
+          <li><span class="letra">B)</span> 1.765</li>
+          <li><span class="letra">C)</span> 1.875</li>
+          <li><span class="letra">D)</span> 1.915</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(FUNDATEC)</span> 6 costureiras costuram 60 camisetas em 1 hora. Com 10 costureiras de mesma capacidade, quantos minutos levariam para costurar a mesma quantidade?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 3,6 min.</li>
+          <li><span class="letra">B)</span> 18 min.</li>
+          <li><span class="letra">C)</span> 36 min.</li>
+          <li><span class="letra">D)</span> 100 min.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(OBJETIVA)</span> Um eletricista leva 4 horas para instalar 12 lâmpadas. Quantas horas levará para instalar 39 lâmpadas?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 10</li>
+          <li><span class="letra">B)</span> 11</li>
+          <li><span class="letra">C)</span> 12</li>
+          <li><span class="letra">D)</span> 13</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(AVANÇÁ)</span> Um professor gasta 45 minutos para corrigir uma prova. Para corrigir 8 provas no mesmo tempo, quantas horas gastará?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 6 horas.</li>
+          <li><span class="letra">B)</span> 5 horas.</li>
+          <li><span class="letra">C)</span> 4 horas e 30 minutos.</li>
+          <li><span class="letra">D)</span> 4 horas.</li>
+          <li><span class="letra">E)</span> Nenhuma das alternativas.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(MPE)</span> 15 funcionários montam 450 veículos por dia. Vinte e cinco funcionários de mesma capacidade montariam, por dia:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 525</li>
+          <li><span class="letra">B)</span> 450</li>
+          <li><span class="letra">C)</span> 675</li>
+          <li><span class="letra">D)</span> 750</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Razão, Proporção e Regra de Três</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 03</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Razão, Proporção e Regra de Três</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(OBJETIVA)</span> Um ciclista a 15 km/h completa um percurso em 4 horas. Aumentando para 20 km/h, quanto tempo levará?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 2,5 horas.</li>
+          <li><span class="letra">B)</span> 3 horas.</li>
+          <li><span class="letra">C)</span> 3,5 horas.</li>
+          <li><span class="letra">D)</span> 5 horas.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(IBAM)</span> 3 funcionários organizam 240 cadeiras em 2 horas. Para organizar 720 cadeiras em 3 horas, quantos funcionários são necessários?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 9.</li>
+          <li><span class="letra">B)</span> 8.</li>
+          <li><span class="letra">C)</span> 4.</li>
+          <li><span class="letra">D)</span> 6.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(FUNDATEC)</span> 5 litros de água diluem 200 ml de produto concentrado. Para 12 litros de solução, quantos ml de produto concentrado são necessários?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 240.</li>
+          <li><span class="letra">B)</span> 480.</li>
+          <li><span class="letra">C)</span> 520.</li>
+          <li><span class="letra">D)</span> 560.</li>
+          <li><span class="letra">E)</span> 600.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(IDCAP)</span> Uma herança de R$ 90.000,00 deve ser dividida entre três herdeiros em partes proporcionais a 2:3:4. Quanto cada herdeiro receberá?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> R$ 20.000, R$ 30.000 e R$ 40.000.</li>
+          <li><span class="letra">B)</span> R$ 18.000, R$ 27.000 e R$ 45.000.</li>
+          <li><span class="letra">C)</span> R$ 15.000, R$ 30.000 e R$ 45.000.</li>
+          <li><span class="letra">D)</span> R$ 25.000, R$ 30.000 e R$ 35.000.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(FENIX)</span> Um agente levou 6 horas para vistoriar 48 barracas. No mesmo ritmo, quantas barracas vistoriará em 10 horas?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 60.</li>
+          <li><span class="letra">B)</span> 72.</li>
+          <li><span class="letra">C)</span> 80.</li>
+          <li><span class="letra">D)</span> 96.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Razão, Proporção e Regra de Três</span>
+      </div>
+</div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">04</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 04 · Raciocínio Lógico-Matemático</div>
+        <h2>Análise Combinatória</h2>
+      </div>
+      <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM" style="width:36px;height:36px;filter:brightness(10);">
+    </div>
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> A quantidade de siglas com quatro letras distintas, formadas a partir das letras do conjunto {A, B, C, D, E, F}, é igual a:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 360</li>
+          <li><span class="letra">B)</span> 720</li>
+          <li><span class="letra">C)</span> 1.200</li>
+          <li><span class="letra">D)</span> 1.296</li>
+          <li><span class="letra">E)</span> 1.340</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Em um grupo de 10 pessoas, cada uma cumprimenta todas as demais com um aperto de mão. O número de apertos de mão será:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 45.</li>
+          <li><span class="letra">B)</span> 50.</li>
+          <li><span class="letra">C)</span> 60.</li>
+          <li><span class="letra">D)</span> 75.</li>
+          <li><span class="letra">E)</span> 90.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> O sistema de emplacamento é composto de três letras seguidas de quatro algarismos. O número de placas possíveis de modo que as três letras sejam vogais é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1.000.000.</li>
+          <li><span class="letra">B)</span> 1.250.000.</li>
+          <li><span class="letra">C)</span> 1.500.000.</li>
+          <li><span class="letra">D)</span> 2.000.000.</li>
+          <li><span class="letra">E)</span> 3.750.000.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(COSEAC)</span> A quantidade de formas de um aluno responder a uma prova de 20 questões com 5 opções cada e obter nota ZERO é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 5²⁰</li>
+          <li><span class="letra">B)</span> 4²⁰</li>
+          <li><span class="letra">C)</span> 1</li>
+          <li><span class="letra">D)</span> 20</li>
+          <li><span class="letra">E)</span> 20⁴</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(COSEAC – GCM Maricá)</span> Usando as letras A, B, C, D, E, F, G, a quantidade máxima de siglas com quatro letras (distintas ou com repetições) iniciadas apenas por vogais é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 240</li>
+          <li><span class="letra">B)</span> 420</li>
+          <li><span class="letra">C)</span> 540</li>
+          <li><span class="letra">D)</span> 686</li>
+          <li><span class="letra">E)</span> 840</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">6.</span> <span class="fonte">(COSEAC)</span> Um turista sabe que a placa do trator começava com W, a segunda letra era R ou B e o último número era 7. Placas têm 3 letras + 4 dígitos (26 letras). Quantas placas se enquadram?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 18.954</li>
+          <li><span class="letra">B)</span> 33.534</li>
+          <li><span class="letra">C)</span> 52.000</li>
+          <li><span class="letra">D)</span> 37.908</li>
+          <li><span class="letra">E)</span> 18.720</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Análise Combinatória</span>
+      </div>
+      <span class="rodape-pg">14</span>
+    </div>
+</div>
+
+<!-- Análise Combinatória — outras bancas --></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 04</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Análise Combinatória</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(DARWIN)</span> Uma comissão de 4 pessoas será formada de 7 homens e 5 mulheres. De quantas maneiras se pode formar a comissão com exatamente 2 homens e 2 mulheres?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 315.</li>
+          <li><span class="letra">B)</span> 350.</li>
+          <li><span class="letra">C)</span> 420.</li>
+          <li><span class="letra">D)</span> 210.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(IDECAN)</span> Quantos números pares de quatro algarismos podemos formar com os dígitos 1, 5, 6, 7, 8?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 250.</li>
+          <li><span class="letra">B)</span> 230.</li>
+          <li><span class="letra">C)</span> 180.</li>
+          <li><span class="letra">D)</span> 160.</li>
+          <li><span class="letra">E)</span> 120.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(ITAME)</span> Com os algarismos 0, 1, 2, 3, 4, 5 e 7, quantos números pares de quatro algarismos podem ser formados sem repeti-los?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 460.</li>
+          <li><span class="letra">B)</span> 320.</li>
+          <li><span class="letra">C)</span> 240.</li>
+          <li><span class="letra">D)</span> 160.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(FGV)</span> Considere as 6 letras de MACAPA. De quantas maneiras diferentes podem ser escritas essas letras de modo que não apareçam duas letras A juntas?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 6.</li>
+          <li><span class="letra">B)</span> 12.</li>
+          <li><span class="letra">C)</span> 16.</li>
+          <li><span class="letra">D)</span> 24.</li>
+          <li><span class="letra">E)</span> 48.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(FGV)</span> Considere as letras da sigla TCEPA. De quantas maneiras podem ser escritas essas 5 letras sem que duas vogais fiquem juntas?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 144.</li>
+          <li><span class="letra">B)</span> 72.</li>
+          <li><span class="letra">C)</span> 54.</li>
+          <li><span class="letra">D)</span> 36.</li>
+          <li><span class="letra">E)</span> 24.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Análise Combinatória</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 04</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Análise Combinatória</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(FUNDATEC)</span> Quantos anagramas distintos podem ser formados a partir das letras da palavra TECNICO?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1.240.</li>
+          <li><span class="letra">B)</span> 2.520.</li>
+          <li><span class="letra">C)</span> 3.780.</li>
+          <li><span class="letra">D)</span> 4.280.</li>
+          <li><span class="letra">E)</span> 5.040.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(OBJETIVA)</span> Um código tem 2 letras distintas (A–Z) seguidas de 3 números distintos (0–9). Qual o número total de códigos possíveis?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 468.000.</li>
+          <li><span class="letra">B)</span> 486.000.</li>
+          <li><span class="letra">C)</span> 504.000.</li>
+          <li><span class="letra">D)</span> 542.000.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(OBJETIVA)</span> De quantas maneiras diferentes é possível ordenar as letras da palavra TECLADO?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 2.520.</li>
+          <li><span class="letra">B)</span> 4.080.</li>
+          <li><span class="letra">C)</span> 5.040.</li>
+          <li><span class="letra">D)</span> 6.360.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(FGV)</span> Considere as 4 letras da sigla TJTO. De quantas maneiras podem ser escritas essas 4 letras de modo que as 2 letras T não fiquem juntas?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 24.</li>
+          <li><span class="letra">B)</span> 12.</li>
+          <li><span class="letra">C)</span> 8.</li>
+          <li><span class="letra">D)</span> 6.</li>
+          <li><span class="letra">E)</span> 4.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(LEGELLE)</span> Com as letras da palavra CODECA, o número de anagramas possíveis é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 120.</li>
+          <li><span class="letra">B)</span> 360.</li>
+          <li><span class="letra">C)</span> 2.160.</li>
+          <li><span class="letra">D)</span> 4.320.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Análise Combinatória</span>
+      </div>
+</div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">05</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 05 · Raciocínio Lógico-Matemático</div>
+        <h2>Princípio da Casa dos Pombos</h2>
+      </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Uma caixa contém: 6 bolas azuis, 4 vermelhas, 8 amarelas, 12 verdes e 10 pretas. A quantidade mínima de bolas que uma pessoa de olhos vendados deve retirar para garantir ao menos duas da mesma cor é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 40.</li>
+          <li><span class="letra">B)</span> 32.</li>
+          <li><span class="letra">C)</span> 16.</li>
+          <li><span class="letra">D)</span> 12.</li>
+          <li><span class="letra">E)</span> 6.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Em um grupo estão reunidas 13 pessoas. Das afirmações abaixo, a única necessariamente verdadeira é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Pelo menos uma delas é estrangeira.</li>
+          <li><span class="letra">B)</span> Pelo menos duas delas são do sexo feminino.</li>
+          <li><span class="letra">C)</span> Pelo menos duas delas fazem aniversário no mesmo mês.</li>
+          <li><span class="letra">D)</span> Pelo menos uma delas nasceu em março.</li>
+          <li><span class="letra">E)</span> Pelo menos uma delas mede mais do que 1,60 m.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(CONSULPLAM)</span> Em um grupo de 18 suspeitos (4 de furto, 5 de assalto, 6 de contrabando, 3 de corrupção ativa), quantos devem ser intimados (X) para que necessariamente haja um de corrupção ou de furto?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 7.</li>
+          <li><span class="letra">B)</span> 8.</li>
+          <li><span class="letra">C)</span> 11.</li>
+          <li><span class="letra">D)</span> 12.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(IBADE)</span> Em uma sala com N alunos, o professor afirma que há pelo menos 3 alunos diferentes fazendo aniversário no mesmo mês. O valor mínimo de N para tornar essa afirmação necessariamente verdadeira é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 3.</li>
+          <li><span class="letra">B)</span> 12.</li>
+          <li><span class="letra">C)</span> 13.</li>
+          <li><span class="letra">D)</span> 24.</li>
+          <li><span class="letra">E)</span> 25.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Princípio da Casa dos Pombos</span>
+      </div>
+</div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 05</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Princípio da Casa dos Pombos</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(FCC)</span> Uma caixa contém 3 bolas amarelas, 4 azuis e 8 vermelhas. O menor número de bolas a serem retiradas para ter certeza de observar as três cores é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 3.</li>
+          <li><span class="letra">B)</span> 10.</li>
+          <li><span class="letra">C)</span> 12.</li>
+          <li><span class="letra">D)</span> 5.</li>
+          <li><span class="letra">E)</span> 13.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(CESPE)</span> Qual a quantidade mínima de pessoas em um grupo para que haja ao menos duas nascidas no mesmo dia da semana?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 4.</li>
+          <li><span class="letra">B)</span> 5.</li>
+          <li><span class="letra">C)</span> 8.</li>
+          <li><span class="letra">D)</span> 6.</li>
+          <li><span class="letra">E)</span> 7.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(FGV)</span> Em uma sala com N pessoas, uma afirma: "Pelo menos 4 pessoas desta sala fazem aniversário no mesmo mês." Para que seja necessariamente verdadeira, o valor mínimo de N é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 15.</li>
+          <li><span class="letra">B)</span> 16.</li>
+          <li><span class="letra">C)</span> 36.</li>
+          <li><span class="letra">D)</span> 37.</li>
+          <li><span class="letra">E)</span> 48.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Princípio da Casa dos Pombos</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">06</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 06 · Raciocínio Lógico-Matemático</div>
+        <h2>Probabilidade</h2>
+      </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Num sorteio, concorrem bilhetes de 1 a 500. Foi dada a informação de que saiu um múltiplo de 5. A probabilidade de ser o bilhete 150 é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1%.</li>
+          <li><span class="letra">B)</span> 5%.</li>
+          <li><span class="letra">C)</span> 10%.</li>
+          <li><span class="letra">D)</span> 15%.</li>
+          <li><span class="letra">E)</span> 20%.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Em um grupo de 500 estudantes: 200 estudam Física, 240 estudam Matemática, 80 estudam as duas. A probabilidade de que o sorteado não estude nenhuma das duas é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 14%.</li>
+          <li><span class="letra">B)</span> 28%.</li>
+          <li><span class="letra">C)</span> 36%.</li>
+          <li><span class="letra">D)</span> 45%.</li>
+          <li><span class="letra">E)</span> 50%.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> Dois participantes atiram num alvo com probabilidade de 90% e 80%, respectivamente, de acertar. A probabilidade de pelo menos um deles errar é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 45%.</li>
+          <li><span class="letra">B)</span> 41%.</li>
+          <li><span class="letra">C)</span> 38%.</li>
+          <li><span class="letra">D)</span> 36%.</li>
+          <li><span class="letra">E)</span> 28%.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(SELECON)</span> Em uma estante com 6 livros de Direito Penal e 8 de Direito Tributário, escolhendo-se 3 ao acaso sem reposição, a probabilidade de apenas o segundo ser de Direito Penal é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1/15.</li>
+          <li><span class="letra">B)</span> 1/13.</li>
+          <li><span class="letra">C)</span> 2/15.</li>
+          <li><span class="letra">D)</span> 2/13.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Probabilidade</span>
+      </div>
+</div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 06</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Probabilidade</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(FGV)</span> Em uma bandeja há 10 empadas: 3 de frango e 7 de palmito. Carla retira 2 ao acaso. A probabilidade de as duas serem de sabores diferentes é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1/2.</li>
+          <li><span class="letra">B)</span> 2/5.</li>
+          <li><span class="letra">C)</span> 3/8.</li>
+          <li><span class="letra">D)</span> 5/12.</li>
+          <li><span class="letra">E)</span> 7/15.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(IDCAP)</span> Em uma caixa com 5 cubos amarelos e 7 cubos verdes, retirando-se 2 cubos sem reposição, a probabilidade de que pelo menos um seja amarelo é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 15/22.</li>
+          <li><span class="letra">B)</span> 10/22.</li>
+          <li><span class="letra">C)</span> 13/20.</li>
+          <li><span class="letra">D)</span> 4/11.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(SELECON)</span> Lúcia tem 15 canetas (7 vermelhas, 3 pretas, 5 azuis). Pegando 3 ao acaso, a probabilidade de serem 3 vermelhas é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1/11.</li>
+          <li><span class="letra">B)</span> 1/12.</li>
+          <li><span class="letra">C)</span> 1/13.</li>
+          <li><span class="letra">D)</span> 1/14.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Probabilidade</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 06</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Probabilidade — continuação</span>
+    </div>
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(OBJETIVA)</span> Uma empresa entrevistou 150 pessoas: 90 preferem refrigerante A, 50 preferem B, 10 não têm preferência. A probabilidade de uma pessoa selecionada aleatoriamente preferir o refrigerante A é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1/3.</li>
+          <li><span class="letra">B)</span> 2/3.</li>
+          <li><span class="letra">C)</span> 3/5.</li>
+          <li><span class="letra">D)</span> 4/5.</li>
+          <li><span class="letra">E)</span> 1/2.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">6.</span> <span class="fonte">(SECPLAN)</span> Um grupo de 5 guardas municipais (entre eles Jair e Bento). Escolhendo 2 ao acaso para uma tarefa, a probabilidade de Jair e Bento serem escolhidos é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 5%.</li>
+          <li><span class="letra">B)</span> 10%.</li>
+          <li><span class="letra">C)</span> 15%.</li>
+          <li><span class="letra">D)</span> 20%.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">7.</span> <span class="fonte">(IFES)</span> Em uma urna com 6 bolas vermelhas e 4 azuis, retirando-se 2 simultaneamente, a probabilidade de obter uma de cada cor é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 20%.</li>
+          <li><span class="letra">B)</span> 27%.</li>
+          <li><span class="letra">C)</span> 53,3%.</li>
+          <li><span class="letra">D)</span> 60%.</li>
+          <li><span class="letra">E)</span> 64%.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">8.</span> <span class="fonte">(OBJETIVA)</span> Em uma urna com 10 bolas (4 vermelhas, 3 azuis e 3 verdes), a probabilidade de tirar uma bola vermelha é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 3/10.</li>
+          <li><span class="letra">B)</span> 4/9.</li>
+          <li><span class="letra">C)</span> 2/5.</li>
+          <li><span class="letra">D)</span> 1/2.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">9.</span> <span class="fonte">(INAZ)</span> Em uma urna há 5 bolas vermelhas, 3 azuis e 2 verdes. Se uma bola for retirada ao acaso, a probabilidade de ser vermelha ou azul é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 0,6.</li>
+          <li><span class="letra">B)</span> 0,8.</li>
+          <li><span class="letra">C)</span> 0,5.</li>
+          <li><span class="letra">D)</span> 0,7.</li>
+          <li><span class="letra">E)</span> 0,9.</li>
+        </ul>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">10.</span> <span class="fonte">(IDECAN)</span> Um saco contém 5 bolas vermelhas, 3 azuis e 2 verdes. Retirando-se 3 sem reposição e sabendo-se que a primeira foi vermelha, a probabilidade de que as três tenham cores diferentes entre si é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 1/6.</li>
+          <li><span class="letra">B)</span> 1/12.</li>
+          <li><span class="letra">C)</span> 1/18.</li>
+          <li><span class="letra">D)</span> 5/36.</li>
+          <li><span class="letra">E)</span> 7/36.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Probabilidade</span>
+      </div>
+      <span class="rodape-pg">21</span>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 15 — OPERAÇÕES BÁSICAS
+════════════════════════════════════════════ --></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">07</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 07 · Raciocínio Lógico-Matemático</div>
+        <h2>Operações Básicas</h2>
+      </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Na conta de Paulo, ocorreram três saques: R$ 120,20, R$ 245,35 e R$ 617,49 e dois depósitos: R$ 450,25 e R$ 500,32. Após essas transações, o saldo ficou negativo em R$ 67,11. O saldo antes das transações era:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> –R$ 32,47.</li>
+          <li><span class="letra">B)</span> +R$ 34,64.</li>
+          <li><span class="letra">C)</span> –R$ 34,64.</li>
+          <li><span class="letra">D)</span> +R$ 32,47.</li>
+          <li><span class="letra">E)</span> +R$ 11,25.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Cláudia saiu de casa com dinheiro para compras. Gastou R$ 30,00 em uma loja e, em outra, 25% do que restava. Voltou com R$ 54,00. Cláudia saiu com:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> R$ 72,00.</li>
+          <li><span class="letra">B)</span> R$ 102,00.</li>
+          <li><span class="letra">C)</span> R$ 216,00.</li>
+          <li><span class="letra">D)</span> R$ 306,00.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> Pedro possui somente notas de 2, 5 e 10 reais. Tem R$ 27,00 sem contar a única nota de R$ 10,00 e tem R$ 12,00 em notas de dois reais. A quantidade total de notas que Pedro possui é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 4.</li>
+          <li><span class="letra">B)</span> 9.</li>
+          <li><span class="letra">C)</span> 10.</li>
+          <li><span class="letra">D)</span> 12.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(COSEAC)</span> Para uma partida de futebol, foram vendidos 37.650 ingressos em três dias. Na terça, o dobro da segunda mais 300. Na quarta, o dobro da terça. O número de ingressos vendidos na segunda-feira foi exatamente:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 5.270.</li>
+          <li><span class="letra">B)</span> 5.265.</li>
+          <li><span class="letra">C)</span> 5.260.</li>
+          <li><span class="letra">D)</span> 5.255.</li>
+          <li><span class="letra">E)</span> 5.250.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(AVANÇÁ)</span> Em um teatro: ingresso adulto = R$ 20, criança = R$ 10. Foram vendidos 150 ingressos, arrecadando R$ 2.400. Quantos ingressos para crianças foram vendidos?</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 150.</li>
+          <li><span class="letra">B)</span> 120.</li>
+          <li><span class="letra">C)</span> 110.</li>
+          <li><span class="letra">D)</span> 60.</li>
+          <li><span class="letra">E)</span> 90.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Operações Básicas</span>
+      </div>
+</div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 07</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Operações Básicas</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(VUNESP)</span> A média de uma equipe médica de 4 pessoas é 28 anos. Duas novas pessoas de 31 anos cada entram no grupo. A nova média será:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 30,5 anos.</li>
+          <li><span class="letra">B)</span> 30 anos.</li>
+          <li><span class="letra">C)</span> 29,5 anos.</li>
+          <li><span class="letra">D)</span> 29 anos.</li>
+          <li><span class="letra">E)</span> 28,5 anos.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(VUNESP)</span> Uma pessoa foi à papelaria com R$ 40,00, comprou 5 pastas a R$ 3,50 cada e 15 lápis iguais, e recebeu R$ 4,50 de troco. O valor de cada lápis era:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> R$ 1,20.</li>
+          <li><span class="letra">B)</span> R$ 1,35.</li>
+          <li><span class="letra">C)</span> R$ 1,50.</li>
+          <li><span class="letra">D)</span> R$ 1,75.</li>
+          <li><span class="letra">E)</span> R$ 1,90.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(FGV)</span> Em um grupo de 32 pessoas, há 8 mulheres a mais do que homens. É correto concluir que, nesse grupo:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Para cada 3 mulheres há 1 homem.</li>
+          <li><span class="letra">B)</span> Para cada 3 mulheres há 2 homens.</li>
+          <li><span class="letra">C)</span> Para cada 4 mulheres há 3 homens.</li>
+          <li><span class="letra">D)</span> Para cada 5 mulheres há 2 homens.</li>
+          <li><span class="letra">E)</span> Para cada 5 mulheres há 3 homens.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(FGV)</span> Um encontro foi organizado por 5 casais. Cada casal teve 4 filhos, todos casados e com 3 filhos cada. Todas as pessoas citadas compareceram. O número de pessoas no encontro é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 70.</li>
+          <li><span class="letra">B)</span> 80.</li>
+          <li><span class="letra">C)</span> 90.</li>
+          <li><span class="letra">D)</span> 100.</li>
+          <li><span class="letra">E)</span> 110.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Operações Básicas</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-header">
+      <div class="secao-header-num">08</div>
+      <div class="secao-header-info">
+        <div class="secao-header-tag">Assunto 08 · Raciocínio Lógico-Matemático</div>
+        <h2>Proposições Lógicas</h2>
+      </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> Considere: "Não é verdade que todo prisioneiro do sexo masculino é violento." Se essa afirmação é verdadeira, então, necessariamente:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Todos os presidiários do sexo masculino não são violentos.</li>
+          <li><span class="letra">B)</span> Existe pelo menos um presidiário do sexo masculino que não é violento.</li>
+          <li><span class="letra">C)</span> Somente as presidiárias do sexo feminino são violentas.</li>
+          <li><span class="letra">D)</span> Existe no máximo um presidiário do sexo masculino que não é violento.</li>
+          <li><span class="letra">E)</span> Existe pelo menos um presidiário do sexo feminino que é violento.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> A negação lógica de "se Maria vai ao cinema, então Antônio fica triste" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Se Maria não vai ao cinema, então Antônio não fica triste.</li>
+          <li><span class="letra">B)</span> Se Maria vai ao cinema, Antônio não fica triste.</li>
+          <li><span class="letra">C)</span> Maria vai ao cinema, ou Antônio não fica triste.</li>
+          <li><span class="letra">D)</span> Maria vai ao cinema, e Antônio não fica triste.</li>
+          <li><span class="letra">E)</span> Se Antônio fica triste, então Maria vai ao cinema.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> A negação lógica de "se Ana adoece, então Pedro fica triste" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Se Ana não adoece, Pedro não fica triste.</li>
+          <li><span class="letra">B)</span> Se Ana adoece, então Pedro não fica triste.</li>
+          <li><span class="letra">C)</span> Ana adoece ou Pedro não fica triste.</li>
+          <li><span class="letra">D)</span> Ana adoece e Pedro não fica triste.</li>
+          <li><span class="letra">E)</span> Se Pedro fica triste, Ana adoece.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(COSEAC)</span> A negação de "Se fico exposto ao sol, então minha pele fica vermelha" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Se fico exposto ao sol, então minha pele não fica vermelha.</li>
+          <li><span class="letra">B)</span> Fico exposto ao sol e minha pele não fica vermelha.</li>
+          <li><span class="letra">C)</span> Se minha pele fica vermelha, então fico exposto ao sol.</li>
+          <li><span class="letra">D)</span> Se não fico exposto ao sol, então minha pele não fica vermelha.</li>
+          <li><span class="letra">E)</span> Se não fico exposto ao sol, então minha pele fica vermelha.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Proposições Lógicas</span>
+      </div>
+</div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 08</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Proposições Lógicas</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge principal">COSEAC / UFF — Banca do Concurso</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(COSEAC)</span> P: Todo X é Y. Q: Nada que é Y é Z. Se P e Q são verdadeiras, é verdadeira também a proposição:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Todo Z é Y.</li>
+          <li><span class="letra">B)</span> Todo Z é X.</li>
+          <li><span class="letra">C)</span> Algum X é Z.</li>
+          <li><span class="letra">D)</span> Nada que é X é Z.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(COSEAC)</span> Se Tiago é mais velho que Ana, então Diva é mais velha que Marcos. Se Diva é mais velha que Marcos, então João é mais velho que Tiago. Ora, Tiago é mais velho que Ana, logo:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Diva é mais velha que Marcos e João é mais velho que Ana.</li>
+          <li><span class="letra">B)</span> Tiago é mais velho que Marcos e Ana é mais velha que João.</li>
+          <li><span class="letra">C)</span> João é mais velho que Ana e Ana é mais velha que Tiago.</li>
+          <li><span class="letra">D)</span> Diva é mais velha que Marcos e Ana é mais velha que Tiago.</li>
+          <li><span class="letra">E)</span> Tiago é mais velho que João ou Ana é mais velha que Tiago.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(COSEAC)</span> Dentre os argumentos abaixo, o que pode ser considerado DEDUTIVO é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> x é ímpar, logo é primo.</li>
+          <li><span class="letra">B)</span> 16, 36 e 56 são múltiplos de 4, logo 1116 é múltiplo de 4 pois termina em 6.</li>
+          <li><span class="letra">C)</span> Encontrei 1000 aves brancas, logo a que está na caixa deve ser branca.</li>
+          <li><span class="letra">D)</span> Todo X é Y e todo Y é Z, logo todo X é Z.</li>
+          <li><span class="letra">E)</span> 133 não é quadrado perfeito.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Proposições Lógicas</span>
+      </div>
+</div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 08</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Proposições Lógicas — outras bancas</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(VUNESP)</span> A negação lógica de "Se Fulano fez o concurso, então ele foi aprovado" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Se Fulano não fez o concurso, então não foi aprovado.</li>
+          <li><span class="letra">B)</span> Fulano fez o concurso e não foi aprovado.</li>
+          <li><span class="letra">C)</span> Se não foi aprovado, então não fez o concurso.</li>
+          <li><span class="letra">D)</span> Fulano não fez o concurso e não foi aprovado.</li>
+          <li><span class="letra">E)</span> Se fez o concurso, então não foi aprovado.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(FUNDATEC)</span> A negação de "Jogos de celular não rendem dinheiro ou as propagandas não são enganosas" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Jogos de celular rendem dinheiro e as propagandas são enganosas.</li>
+          <li><span class="letra">B)</span> Jogos de celular rendem dinheiro ou as propagandas são enganosas.</li>
+          <li><span class="letra">C)</span> Jogos de celular são enganosos e as propagandas rendem dinheiro.</li>
+          <li><span class="letra">D)</span> As propagandas não rendem dinheiro ou os jogos não são enganosos.</li>
+          <li><span class="letra">E)</span> As propagandas não são enganosas e os jogos não rendem dinheiro.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(SELECON)</span> Rodrigo afirmou: "Todos os pratos desse restaurante são ótimos." A negação lógica dessa afirmação é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Nenhum prato é ótimo.</li>
+          <li><span class="letra">B)</span> Nenhum prato não é ótimo.</li>
+          <li><span class="letra">C)</span> Todos os pratos não são ótimos.</li>
+          <li><span class="letra">D)</span> Existe pelo menos um prato que não é ótimo.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(IBEST)</span> A proposição "Todo homem frio é calculista" é falsa. Uma conclusão lógica válida é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Todo homem frio não é calculista.</li>
+          <li><span class="letra">B)</span> Nenhuma mulher fria é calculista.</li>
+          <li><span class="letra">C)</span> Nenhum homem frio é calculista.</li>
+          <li><span class="letra">D)</span> Algumas mulheres frias são calculistas.</li>
+          <li><span class="letra">E)</span> Existe pelo menos um homem frio que não é calculista.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(VUNESP)</span> Uma negação lógica de "Uma guerra é cruel e cria angústia e aumenta a insegurança" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Uma guerra não é cruel e não cria angústia e aumenta a insegurança.</li>
+          <li><span class="letra">B)</span> Uma guerra não é cruel ou não cria angústia e aumenta a insegurança.</li>
+          <li><span class="letra">C)</span> Uma guerra não é cruel ou não cria angústia ou não aumenta a insegurança.</li>
+          <li><span class="letra">D)</span> Uma guerra não é cruel ou cria angústia e não aumenta a insegurança.</li>
+          <li><span class="letra">E)</span> Uma guerra não é cruel e não cria angústia e não aumenta a insegurança.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">6.</span> <span class="fonte">(VUNESP)</span> Uma negação lógica de "Se os livros foram catalogados, então foram distribuídos nas estantes" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Os livros foram catalogados e não foram distribuídos nas estantes.</li>
+          <li><span class="letra">B)</span> Não foram catalogados e não foram distribuídos.</li>
+          <li><span class="letra">C)</span> Foram catalogados ou foram distribuídos.</li>
+          <li><span class="letra">D)</span> Se não foram catalogados, então não foram distribuídos.</li>
+          <li><span class="letra">E)</span> Se não foram distribuídos, então não foram catalogados.</li>
+        </ul>
+      </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Proposições Lógicas</span>
+      </div>
+</div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="questoes-pg">
+    <div class="secao-cont-header">
+      <span class="secao-cont-label">Assunto 08</span>
+      <div class="secao-cont-sep"></div>
+      <span class="secao-cont-titulo">Proposições Lógicas — outras bancas</span>
+    </div>
+
+    <div class="questoes-corpo">
+      <div class="banca-label">
+        <span class="banca-label-badge outras">Questões de Outras Bancas — Mesmo Padrão</span>
+        <span class="banca-label-linha"></span>
+      </div>
+
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">1.</span> <span class="fonte">(DECORP)</span> A negação correta de "Se João estuda, então ele passa na prova" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> João estuda e passa na prova.</li>
+          <li><span class="letra">B)</span> João estuda e não passa na prova.</li>
+          <li><span class="letra">C)</span> Se João passa, então estudou.</li>
+          <li><span class="letra">D)</span> João não estuda ou não passa na prova.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">2.</span> <span class="fonte">(FUNDATEC)</span> A proposição equivalente a "se 2+2=4, então 7×3=21" é corretamente descrita em:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 2+2 ≠ 4 ou 7×3 = 21.</li>
+          <li><span class="letra">B)</span> 2+2 = 4 e 7×3 ≠ 21.</li>
+          <li><span class="letra">C)</span> Se 7×3 = 4, então 2+2 = 21.</li>
+          <li><span class="letra">D)</span> 2+2 = 4 sse 7×3 ≠ 21.</li>
+          <li><span class="letra">E)</span> 2+2 = 4, mas 7×3 ≠ 21.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">3.</span> <span class="fonte">(FUNDATEC)</span> "Se 22 é par, então 11 é ímpar" é logicamente equivalente a:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> 22 não é par e 11 é par.</li>
+          <li><span class="letra">B)</span> Se 11 não é ímpar, então 22 não é par.</li>
+          <li><span class="letra">C)</span> 11 é ímpar e 22 é par.</li>
+          <li><span class="letra">D)</span> 22 é par ou 11 é ímpar.</li>
+          <li><span class="letra">E)</span> Se 22 não é par, então 11 não é ímpar.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">4.</span> <span class="fonte">(FUNDATEC)</span> Uma sentença logicamente equivalente a "se os gatos são mamíferos, então os mamíferos são peludos" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Se os mamíferos são peludos, então os gatos são mamíferos.</li>
+          <li><span class="letra">B)</span> Se os mamíferos não são peludos, então os gatos não são mamíferos.</li>
+          <li><span class="letra">C)</span> Se os gatos não são mamíferos, então os mamíferos não são peludos.</li>
+          <li><span class="letra">D)</span> Os gatos são mamíferos ou os mamíferos são peludos.</li>
+          <li><span class="letra">E)</span> Os gatos são peludos e os mamíferos são gatos.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">5.</span> <span class="fonte">(FUNDATEC)</span> A negação de "José é rico ou Pablo é comerciante" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> José não é rico ou Pablo não é comerciante.</li>
+          <li><span class="letra">B)</span> José não é rico e Pablo não é comerciante.</li>
+          <li><span class="letra">C)</span> José é comerciante e Pablo é rico.</li>
+          <li><span class="letra">D)</span> José não é comerciante ou Pablo não é rico.</li>
+          <li><span class="letra">E)</span> Se José é rico, então Pablo é comerciante.</li>
+        </ul>
+      </div>
+      <div class="questao">
+        <p class="questao-enunciado"><span class="questao-num">6.</span> <span class="fonte">(IBEST)</span> A negação de "Todos os brasileiros gostam de arroz e feijão" é:</p>
+        <ul class="questao-alternativas">
+          <li><span class="letra">A)</span> Algum brasileiro não gosta de arroz ou feijão.</li>
+          <li><span class="letra">B)</span> Nenhum brasileiro gosta de arroz ou feijão.</li>
+          <li><span class="letra">C)</span> Pelo menos um brasileiro gosta de arroz e feijão.</li>
+          <li><span class="letra">D)</span> Todos os brasileiros não gostam de arroz e feijão.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questoes-rodape">
+      <div class="questoes-rodape-esq">
+        <img class="rodape-logo-mini" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM">
+        <span class="rodape-txt">Prof. Walter Brotto — GCM Maricá 2026 · Proposições Lógicas</span>
+      </div>
+</div></div>
+</div>
+<div class="pagina">
+
+  <div class="gabaritos-pg">
+    <div class="gabaritos-header">
+      <div class="gabaritos-header-tag">Respostas · RLM · GCM Maricá 2026</div>
+      <h1>Gabaritos <em>por Assunto</em></h1>
+    </div>
+
+    <div class="gabaritos-corpo">
+      <div class="gab-pg-grid">
+
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">01</span>
+          <span class="gab-pg-titulo">Sequências Lógicas</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> A</span>
+          <span class="gabarito-item"><span>2</span> E</span>
+          <span class="gabarito-item"><span>3</span> A</span>
+          <span class="gabarito-item"><span>4</span> B</span>
+          <span class="gabarito-item"><span>5</span> C</span>
+          <span class="gabarito-item"><span>6</span> C</span>
+          </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">Outras Bancas — Mesmo Padrão</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> C</span>
+          <span class="gabarito-item"><span>2</span> C</span>
+          <span class="gabarito-item"><span>3</span> B</span>
+          <span class="gabarito-item"><span>4</span> E</span>
+          <span class="gabarito-item"><span>5</span> B</span>
+          <span class="gabarito-item"><span>6</span> E</span>
+          <span class="gabarito-item"><span>7</span> A</span>
+          <span class="gabarito-item"><span>8</span> D</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">02</span>
+          <span class="gab-pg-titulo">Conjuntos</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> C</span>
+          <span class="gabarito-item"><span>2</span> E</span>
+          <span class="gabarito-item"><span>3</span> A</span>
+          <span class="gabarito-item"><span>4</span> B</span>
+          <span class="gabarito-item"><span>5</span> A</span>
+          <span class="gabarito-item"><span>6</span> D</span>
+          </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">Outras Bancas — Mesmo Padrão</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> B</span>
+          <span class="gabarito-item"><span>2</span> D</span>
+          <span class="gabarito-item"><span>3</span> B</span>
+          <span class="gabarito-item"><span>4</span> C</span>
+          <span class="gabarito-item"><span>5</span> D</span>
+          <span class="gabarito-item"><span>6</span> A</span>
+          <span class="gabarito-item"><span>7</span> C</span>
+          <span class="gabarito-item"><span>8</span> B</span>
+          <span class="gabarito-item"><span>9</span> A</span>
+          <span class="gabarito-item"><span>10</span> B</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">03</span>
+          <span class="gab-pg-titulo">Razão, Proporção e Regra de Três</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> C</span>
+          <span class="gabarito-item"><span>2</span> E</span>
+          <span class="gabarito-item"><span>3</span> A</span>
+          <span class="gabarito-item"><span>4</span> D</span>
+          <span class="gabarito-item"><span>5</span> D</span>
+          <span class="gabarito-item"><span>6</span> B</span>
+          <span class="gabarito-item"><span>7</span> B</span>
+          </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">Outras Bancas — Mesmo Padrão</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> C</span>
+          <span class="gabarito-item"><span>2</span> C</span>
+          <span class="gabarito-item"><span>3</span> D</span>
+          <span class="gabarito-item"><span>4</span> A</span>
+          <span class="gabarito-item"><span>5</span> D</span>
+          <span class="gabarito-item"><span>6</span> B</span>
+          <span class="gabarito-item"><span>7</span> D</span>
+          <span class="gabarito-item"><span>8</span> B</span>
+          <span class="gabarito-item"><span>9</span> A</span>
+          <span class="gabarito-item"><span>10</span> C</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">04</span>
+          <span class="gab-pg-titulo">Análise Combinatória</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> A</span>
+          <span class="gabarito-item"><span>2</span> A</span>
+          <span class="gabarito-item"><span>3</span> B</span>
+          <span class="gabarito-item"><span>4</span> B</span>
+          <span class="gabarito-item"><span>5</span> D</span>
+          <span class="gabarito-item"><span>6</span> C</span>
+          </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">Outras Bancas — Mesmo Padrão</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> D</span>
+          <span class="gabarito-item"><span>2</span> A</span>
+          <span class="gabarito-item"><span>3</span> B</span>
+          <span class="gabarito-item"><span>4</span> D</span>
+          <span class="gabarito-item"><span>5</span> B</span>
+          <span class="gabarito-item"><span>6</span> B</span>
+          <span class="gabarito-item"><span>7</span> A</span>
+          <span class="gabarito-item"><span>8</span> C</span>
+          <span class="gabarito-item"><span>9</span> D</span>
+          <span class="gabarito-item"><span>10</span> B</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">05</span>
+          <span class="gab-pg-titulo">Princípio da Casa dos Pombos</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> E</span>
+          <span class="gabarito-item"><span>2</span> C</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">06</span>
+          <span class="gab-pg-titulo">Probabilidade</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> A</span>
+          <span class="gabarito-item"><span>2</span> B</span>
+          <span class="gabarito-item"><span>3</span> E</span>
+          </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">Outras Bancas — Mesmo Padrão</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> D</span>
+          <span class="gabarito-item"><span>2</span> E</span>
+          <span class="gabarito-item"><span>3</span> A</span>
+          <span class="gabarito-item"><span>4</span> C</span>
+          <span class="gabarito-item"><span>5</span> C</span>
+          <span class="gabarito-item"><span>6</span> B</span>
+          <span class="gabarito-item"><span>7</span> C</span>
+          <span class="gabarito-item"><span>8</span> C</span>
+          <span class="gabarito-item"><span>9</span> B</span>
+          <span class="gabarito-item"><span>10</span> A</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">07</span>
+          <span class="gab-pg-titulo">Operações Básicas</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> C</span>
+          <span class="gabarito-item"><span>2</span> B</span>
+          <span class="gabarito-item"><span>3</span> C</span>
+          <span class="gabarito-item"><span>4</span> E</span>
+          </div>
+      </div>
+      <div class="gab-pg-assunto">
+        <div class="gab-pg-assunto-header">
+          <span class="gab-pg-num">08</span>
+          <span class="gab-pg-titulo">Proposições Lógicas</span>
+        </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">COSEAC / UFF — Banca do Concurso</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> B</span>
+          <span class="gabarito-item"><span>2</span> D</span>
+          <span class="gabarito-item"><span>3</span> D</span>
+          <span class="gabarito-item"><span>4</span> B</span>
+          <span class="gabarito-item"><span>5</span> D</span>
+          <span class="gabarito-item"><span>6</span> A</span>
+          <span class="gabarito-item"><span>7</span> D</span>
+          </div>
+        <div class="gab-pg-bloco">
+          <span class="gab-pg-banca">Outras Bancas — Mesmo Padrão</span>
+          <div class="gab-pg-itens">
+            <span class="gabarito-item"><span>1</span> B</span>
+          <span class="gabarito-item"><span>2</span> A</span>
+          <span class="gabarito-item"><span>3</span> D</span>
+          <span class="gabarito-item"><span>4</span> E</span>
+          <span class="gabarito-item"><span>5</span> C</span>
+          <span class="gabarito-item"><span>6</span> A</span>
+          <span class="gabarito-item"><span>7</span> B</span>
+          <span class="gabarito-item"><span>8</span> A</span>
+          <span class="gabarito-item"><span>9</span> B</span>
+          <span class="gabarito-item"><span>10</span> B</span>
+          <span class="gabarito-item"><span>11</span> B</span>
+          <span class="gabarito-item"><span>12</span> A</span>
+          </div>
+      </div>
+    </div>
+
+    <div class="gabaritos-rodape">
+      <span class="gabaritos-rodape-txt">Prof. Walter Brotto — GCM Maricá 2026</span>
+      <span class="gabaritos-rodape-num">28</span>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 19 — ENCERRAMENTO
+════════════════════════════════════════════ --></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+</div>
+<div class="pagina">
+
+  <div class="encerramento-pg">
+    <div class="encerramento-corpo">
+      <div class="encerramento-ornamento"></div>
+      <div class="encerramento-tag">E-book de Questões · GCM Maricá 2026</div>
+
+      <h2 class="encerramento-titulo">O e-book termina aqui…<br><em>A sua aprovação está começando.</em></h2>
+
+      <p class="encerramento-subtitulo">
+        Se você chegou até o fim, parabéns.<br>
+        Você acaba de investir no que mais importa agora:<br>
+        construir a base que vai te diferenciar na prova.
+      </p>
+
+      <div class="encerramento-linha"></div>
+
+      <img class="encerramento-foto" src="037.png" alt="Prof. Walter Brotto">
+
+      <div class="encerramento-prof-nome">Prof. Walter Brotto</div>
+
+      <p style="font-family:var(--serif-body);font-size:10.5pt;color:var(--prata);line-height:1.8;margin-top:16px;max-width:400px;margin-left:auto;margin-right:auto;">
+        Sempre que quiser mais dicas, resolução de questões e conteúdo direto ao ponto,
+        me acompanhe nas redes. Estou por lá regularmente, compartilhando o que realmente
+        faz diferença para quem quer chegar preparado no dia da prova.
+      </p>
+
+      <div class="encerramento-redes">
+        <a href="https://www.instagram.com/walterbrotto/" target="_blank" class="encerramento-rede">Instagram · @walterbrotto</a>
+        <a href="https://www.youtube.com/@walterbrottoprof" target="_blank" class="encerramento-rede">YouTube · @walterbrottoprof</a>
+      </div>
+
+      <p style="font-family:var(--serif-display);font-size:11pt;font-weight:700;color:var(--dourado);margin-top:32px;letter-spacing:.06em;">
+        Agora é com você. Coloque em prática e veja os resultados acontecerem.
+      </p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PÁGINA 20 — CONTRACAPA
+════════════════════════════════════════════ -->
+</div>
+<div class="pagina">
+
+  <div class="contracapa-pg">
+    <div class="contracapa-corpo">
+      <img class="contracapa-logo" src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="Brasão GCM Maricá">
+
+      <div class="contracapa-separador"></div>
+
+      <div class="contracapa-nome">Prof. Walter Brotto</div>
+      <div class="contracapa-nome-sub">Especialista em Matemática e Raciocínio Lógico para Concursos Públicos</div>
+
+      <p class="contracapa-txt">
+        Este material foi elaborado com dedicação para candidatos ao concurso da
+        <strong>Guarda Civil Municipal de Maricá/RJ 2026</strong>, com foco no padrão
+        de questões da banca <strong>COSEAC/UFF</strong>.<br><br>
+        111 questões. 8 assuntos. Gabarito incluso.<br>
+        Tudo o que você precisa para dominar Raciocínio Lógico-Matemático.
+      </p>
+
+      <div class="contracapa-separador"></div>
+
+      <p style="font-family:var(--serif-fine);font-size:9pt;font-style:italic;color:rgba(214,221,232,.45);line-height:1.7;">
+        Material didático exclusivo · Proibida a reprodução total ou parcial sem autorização.<br>
+        © 2026 Prof. Walter Brotto · Todos os direitos reservados.
+      </p>
+    </div>
+
+    <div class="contracapa-rodape-barra"></div>
+</div>
+
+<script>
+/**
+ * Renumera rodapés e sumário automaticamente antes da impressão.
+ * Cada .pagina corresponde a 1 página real no PDF.
+ */
+(function() {
+  function renumerar() {
+    var paginas = document.querySelectorAll('.pagina');
+    var numMap = {}; // assunto → primeira página real
+
+    paginas.forEach(function(pg, idx) {
+      var numReal = idx + 1;
+
+      // Atualiza rodape-pg (numeração na base de cada página de questões)
+      var rodapePg = pg.querySelector('.rodape-pg');
+      if (rodapePg) {
+        rodapePg.textContent = numReal;
+      }
+
+      // Atualiza numeração do sumário e da introdução (estilo inline)
+      var sumarioNum = pg.querySelector('.sumario-rodape-txt[style*="font-weight:700"], .sumario-rodape [style*="font-weight"]');
+      if (sumarioNum) sumarioNum.textContent = numReal;
+
+      var introNum = pg.querySelector('.intro-rodape span:last-child');
+      if (introNum && /^\d+$/.test(introNum.textContent.trim())) {
+        introNum.textContent = numReal;
+      }
+
+      var gabaritosNum = pg.querySelector('.gabaritos-rodape-num');
+      if (gabaritosNum) gabaritosNum.textContent = numReal;
+    });
+  }
+
+  // Executa antes da impressão
+  window.addEventListener('beforeprint', renumerar);
+  // Também executa imediatamente para o headless Chrome
+  document.addEventListener('DOMContentLoaded', renumerar);
+  renumerar();
+})();
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-book RLM — GCM Maricá 2026 | Prof. Walter Brotto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ──────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --azul:        #0D1F3C;
+  --azul-medio:  #1A3A6B;
+  --azul-claro:  #2E5FAA;
+  --dourado:     #C8A951;
+  --dourado-v:   #E8C96A;
+  --dourado-e:   #A08030;
+  --creme:       #F5F0E8;
+  --cinza-q:     #E8E2D8;
+  --cinza-t:     #5A5450;
+  --branco:      #FFFFFF;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--creme);
+  color: var(--azul);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a   { color: inherit; text-decoration: none; }
+
+.container { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+.narrow    { max-width: 740px;  margin: 0 auto; padding: 0 28px; }
+
+/* ── BOTÃO ─────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--dourado);
+  color: var(--azul);
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 20px 40px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.22s, transform 0.18s, box-shadow 0.22s;
+  box-shadow: 0 6px 28px rgba(200,169,81,0.38);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+.btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%);
+  pointer-events: none;
+}
+.btn:hover { background: var(--dourado-v); transform: translateY(-2px); box-shadow: 0 10px 38px rgba(200,169,81,0.52); }
+.btn--lg   { font-size: 0.84rem; padding: 22px 52px; }
+.btn--full { width: 100%; }
+
+/* ── DIVISOR OURO ───────────────────────────────── */
+.div-ouro {
+  width: 56px; height: 2px;
+  background: linear-gradient(90deg, var(--dourado), transparent);
+  margin: 20px 0;
+}
+.div-ouro.centro { margin: 20px auto; background: linear-gradient(90deg, transparent, var(--dourado), transparent); width: 80px; }
+
+/* ── TAG DE SEÇÃO ───────────────────────────────── */
+.tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.tag::after { content:''; width:36px; height:1px; background:var(--dourado); opacity:.5; }
+.tag.claro { color: var(--dourado-v); }
+.tag.claro::after { background: var(--dourado-v); }
+.tag.centro { justify-content: center; }
+.tag.centro::after { display:none; }
+
+/* ── TÍTULO ─────────────────────────────────────── */
+.titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--azul);
+}
+.titulo em   { font-style: italic; color: var(--dourado); }
+.titulo.claro { color: var(--branco); }
+.titulo.claro em { color: var(--dourado-v); }
+.titulo.centro { text-align: center; }
+
+/* ── SUBTÍTULO / CORPO ──────────────────────────── */
+.sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--cinza-t);
+  line-height: 1.8;
+  max-width: 620px;
+}
+.sub.claro { color: rgba(245,240,232,0.78); }
+.sub strong { color: var(--azul); font-weight: 600; }
+.sub.claro strong { color: var(--branco); }
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 1 — HERO
+════════════════════════════════════════════════ */
+.hero {
+  background: var(--azul);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 10%, rgba(200,169,81,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 85%, rgba(26,58,107,.45) 0%, transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+
+.hero-esq {
+  padding: 80px 56px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative; z-index: 2;
+}
+
+/* logo GCM */
+.hero-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.hero-logo img { width: 64px; filter: drop-shadow(0 4px 18px rgba(200,169,81,.42)); }
+.hero-logo-txt .l1 {
+  font-family: 'Cinzel', serif;
+  font-size: .54rem; letter-spacing: .38em; text-transform: uppercase;
+  color: var(--dourado); line-height: 1;
+}
+.hero-logo-txt .l2 {
+  font-family: 'Cinzel', serif;
+  font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--branco); line-height: 1.35;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.2vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--branco);
+  margin-bottom: 18px;
+  max-width: 500px;
+}
+.hero h1 em     { font-style: italic; color: var(--dourado-v); }
+.hero h1 strong { font-weight: 900; }
+
+.hero-p {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.06rem;
+  color: rgba(245,240,232,.82);
+  line-height: 1.78;
+  max-width: 460px;
+  margin-bottom: 36px;
+}
+.hero-p strong { color: var(--branco); font-weight: 600; }
+
+/* preço hero */
+.hero-preco {
+  background: rgba(200,169,81,.10);
+  border: 1px solid rgba(200,169,81,.30);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  max-width: 380px;
+}
+.hero-preco-de {
+  font-family: 'EB Garamond', serif;
+  font-size: .9rem;
+  color: rgba(245,240,232,.38);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+.hero-preco-val {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.2rem,4vw,3.2rem);
+  font-weight: 900;
+  color: var(--branco);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-preco-val span {
+  font-size: clamp(1rem,1.6vw,1.4rem);
+  font-weight: 700;
+  color: var(--dourado);
+}
+.hero-preco-parcela {
+  font-family: 'EB Garamond', serif;
+  font-size: .9rem;
+  color: rgba(245,240,232,.5);
+}
+.hero-desc {
+  font-family: 'Cinzel', serif;
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  background: var(--dourado);
+  color: var(--azul);
+  padding: 5px 14px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.hero-garantia {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'EB Garamond', serif;
+  font-size: .9rem;
+  color: rgba(245,240,232,.38);
+  margin-top: 14px;
+}
+
+/* foto direita */
+.hero-dir {
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+}
+.hero-dir::before {
+  content: '';
+  position: absolute; top:0; bottom:0; left:0;
+  width: 58%;
+  background: linear-gradient(90deg, var(--azul) 0%, rgba(13,31,60,.88) 30%, rgba(13,31,60,.44) 58%, transparent 100%);
+  z-index: 2; pointer-events: none;
+}
+.hero-dir::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, var(--azul) 0%, transparent 14%),
+    linear-gradient(to top,    var(--azul) 0%, transparent 24%);
+  z-index: 2; pointer-events: none;
+}
+.hero-dir img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  position: absolute; top:0; left:0;
+  filter: brightness(.88) contrast(1.05);
+}
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 2 — MICROCREDENCIAIS + PROBLEMA
+════════════════════════════════════════════════ */
+.micro {
+  background: var(--azul-medio);
+  border-top: 1px solid rgba(200,169,81,.15);
+  border-bottom: 1px solid rgba(200,169,81,.15);
+}
+.micro-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.micro-item {
+  text-align: center;
+  padding: 26px 20px;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.micro-item:last-child { border-right: none; }
+.micro-ico { font-size: 1.8rem; line-height: 1; margin-bottom: 8px; }
+.micro-txt {
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--dourado-v);
+  line-height: 1.45;
+}
+
+/* problema */
+.secao { padding: 80px 0; }
+.secao--branco { background: var(--branco); }
+.secao--creme  { background: var(--creme); }
+.secao--cinza  { background: var(--cinza-q); }
+.secao--azul   { background: var(--azul); }
+.secao--medio  { background: var(--azul-medio); }
+
+.problema-corpo {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.08rem;
+  color: var(--cinza-t);
+  line-height: 1.82;
+  margin-bottom: 18px;
+}
+.problema-corpo strong { color: var(--azul); font-weight: 600; }
+
+.formula-destaque {
+  background: var(--azul);
+  padding: 24px 32px;
+  margin: 36px 0;
+  border-left: 4px solid var(--dourado);
+}
+.formula-destaque p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem,1.8vw,1.4rem);
+  font-style: italic;
+  color: var(--branco);
+  line-height: 1.45;
+}
+.formula-destaque p strong { color: var(--dourado-v); font-style: normal; font-weight: 700; }
+
+/* erros */
+.erros-lista { list-style: none; margin: 28px 0; }
+.erros-lista li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--cinza-q);
+  font-family: 'EB Garamond', serif;
+  font-size: 1.02rem;
+  color: var(--cinza-t);
+  line-height: 1.65;
+}
+.erros-lista li:last-child { border-bottom: none; }
+.erros-lista li .x {
+  flex-shrink: 0;
+  font-size: .9rem;
+  font-weight: 700;
+  color: #8B1A1A;
+  margin-top: 3px;
+}
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 3 — SOLUÇÃO POR CENÁRIO
+════════════════════════════════════════════════ */
+.cenario-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 40px;
+}
+.cenario-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--cinza-q);
+  padding: 28px 0;
+}
+.cenario-item:last-child { border-bottom: none; }
+.cenario-emoji {
+  width: 52px;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.cenario-txt h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--azul);
+  margin-bottom: 6px;
+}
+.cenario-txt p {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  color: var(--cinza-t);
+  line-height: 1.72;
+}
+.cenario-txt p strong { color: var(--azul-medio); font-weight: 600; }
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 4 — CONTEÚDO DO E-BOOK
+════════════════════════════════════════════════ */
+.capitulos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 44px;
+  background: var(--cinza-q);
+}
+.cap-item {
+  background: var(--branco);
+  padding: 32px 28px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.cap-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; padding-top: 3px; }
+.cap-txt h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--azul);
+  margin-bottom: 7px;
+  line-height: 1.3;
+}
+.cap-txt p {
+  font-family: 'EB Garamond', serif;
+  font-size: .96rem;
+  color: var(--cinza-t);
+  line-height: 1.68;
+}
+
+.total-box {
+  background: var(--azul);
+  padding: 28px 36px;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-top: 3px solid var(--dourado);
+}
+.total-num {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.2rem,4vw,3rem);
+  font-weight: 900;
+  color: var(--dourado);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.total-info h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--branco);
+  margin-bottom: 4px;
+}
+.total-info p {
+  font-family: 'EB Garamond', serif;
+  font-size: .92rem;
+  color: rgba(245,240,232,.55);
+}
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 5 — OFERTA
+════════════════════════════════════════════════ */
+.oferta-card {
+  max-width: 540px;
+  margin: 48px auto 0;
+  background: var(--azul);
+  border: 1px solid rgba(200,169,81,.22);
+  padding: 52px 48px 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.oferta-card::before {
+  content: ''; position: absolute; top:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, transparent, var(--dourado), transparent);
+}
+.oferta-etiqueta {
+  display: inline-block;
+  background: var(--dourado); color: var(--azul);
+  font-family: 'Cinzel', serif; font-size: .58rem; font-weight: 900; letter-spacing: .2em; text-transform: uppercase;
+  padding: 7px 20px; margin-bottom: 28px;
+}
+.oferta-nome {
+  font-family: 'Cinzel', serif; font-size: .64rem; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(245,240,232,.38); margin-bottom: 8px;
+}
+.oferta-lista { list-style: none; margin-bottom: 32px; text-align: left; }
+.oferta-lista li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+  font-family: 'EB Garamond', serif; font-size: 1.02rem; color: rgba(245,240,232,.75); line-height: 1.55;
+}
+.oferta-lista li:last-child { border-bottom: none; }
+.oferta-lista li::before { content: '✓'; color: var(--dourado); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.oferta-lista li strong { color: var(--branco); font-weight: 600; }
+
+.oferta-de     { font-size: .92rem; color: rgba(255,255,255,.28); text-decoration: line-through; margin-bottom: 4px; font-family:'EB Garamond',serif; }
+.oferta-por    { font-family:'Cinzel',serif; font-size:.64rem; color:var(--dourado); letter-spacing:.2em; text-transform:uppercase; margin-bottom:4px; }
+.oferta-preco  { font-family:'Cinzel',serif; font-size:clamp(2.8rem,5vw,3.8rem); font-weight:900; color:var(--branco); line-height:1; margin-bottom:6px; }
+.oferta-parcel { font-family:'EB Garamond',serif; font-size:.92rem; color:rgba(255,255,255,.38); margin-bottom:36px; }
+
+.oferta-garantia-txt {
+  font-family:'EB Garamond',serif; font-size:.9rem; color:rgba(255,255,255,.32);
+  display:flex; align-items:center; justify-content:center; gap:8px; margin-top:14px;
+}
+
+.selos { display:flex; justify-content:center; gap:24px; margin-top:32px; flex-wrap:wrap; }
+.selo  { display:flex; flex-direction:column; align-items:center; gap:7px; }
+.selo-i { font-size:1.5rem; opacity:.52; line-height:1; }
+.selo span {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(245,240,232,.32); text-align:center;
+}
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 6 — GARANTIA
+════════════════════════════════════════════════ */
+.garantia-box {
+  border: 2px solid var(--dourado);
+  padding: 44px 48px;
+  margin-top: 48px;
+  position: relative;
+}
+.garantia-box::before {
+  content: '7 dias';
+  position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+  background: var(--dourado); color: var(--azul);
+  font-family: 'Cinzel', serif; font-size: .68rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+  padding: 6px 22px;
+  white-space: nowrap;
+}
+.garantia-corpo {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.06rem;
+  color: var(--cinza-t);
+  line-height: 1.82;
+}
+.garantia-corpo strong { color: var(--azul); font-weight: 600; }
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 7 — URGÊNCIA
+════════════════════════════════════════════════ */
+.urgencia-box {
+  background: var(--azul-medio);
+  padding: 56px 0;
+  text-align: center;
+  border-top: 1px solid rgba(200,169,81,.18);
+  border-bottom: 1px solid rgba(200,169,81,.18);
+}
+.urgencia-aviso {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(200,169,81,.10); border: 1px solid rgba(200,169,81,.28);
+  padding: 8px 20px;
+  font-family: 'Cinzel', serif; font-size: .58rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--dourado-v); margin-bottom: 28px;
+}
+.urgencia-box h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem,3vw,2.4rem);
+  font-weight: 700;
+  color: var(--branco);
+  line-height: 1.25;
+  margin-bottom: 20px;
+  max-width: 680px;
+  margin-left: auto; margin-right: auto;
+}
+.urgencia-box h2 em { font-style: italic; color: var(--dourado-v); }
+.urgencia-corpo {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.06rem;
+  color: rgba(245,240,232,.78);
+  line-height: 1.78;
+  max-width: 600px;
+  margin: 0 auto 36px;
+}
+.urgencia-corpo strong { color: var(--branco); font-weight: 600; }
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 8 — BIO
+════════════════════════════════════════════════ */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-top: 56px;
+}
+.bio-foto { position: relative; overflow: hidden; }
+.bio-foto::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, var(--creme) 0%, transparent 16%),
+    linear-gradient(to top,    var(--creme) 0%, transparent 26%),
+    linear-gradient(to right,  var(--creme) 0%, transparent 18%),
+    linear-gradient(to left,   var(--creme) 0%, transparent 18%);
+  z-index: 2; pointer-events: none;
+}
+.bio-foto img {
+  width: 100%; height: 490px;
+  object-fit: cover; object-position: top center;
+  display: block; position: relative; z-index: 1;
+  filter: grayscale(10%) contrast(1.02) brightness(.9);
+}
+.bio-tag {
+  font-family: 'Cinzel', serif; font-size: .56rem; font-weight: 700; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--dourado); margin-bottom: 12px;
+}
+.bio-nome {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem,2.6vw,2.2rem); font-weight: 800;
+  color: var(--azul); line-height: 1.15; margin-bottom: 6px;
+}
+.bio-titulo {
+  font-family: 'EB Garamond', serif;
+  font-size: .96rem; font-style: italic; color: var(--cinza-t); margin-bottom: 24px;
+}
+.bio-corpo {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.02rem; color: var(--cinza-t); line-height: 1.82; margin-bottom: 8px;
+}
+.bio-corpo strong { color: var(--azul); font-weight: 600; }
+.bio-nums {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 12px;
+  margin-top: 24px; margin-bottom: 28px;
+}
+.bio-num {
+  padding: 16px 20px;
+  background: var(--branco);
+  border: 1px solid var(--cinza-q);
+  border-top: 2px solid var(--dourado);
+}
+.bio-num-v { font-family:'Cinzel',serif; font-size:1.25rem; font-weight:800; color:var(--azul); display:block; line-height:1; }
+.bio-num-l { font-family:'EB Garamond',serif; font-size:.82rem; color:var(--cinza-t); margin-top:4px; display:block; }
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 9 — FAQ
+════════════════════════════════════════════════ */
+.faq-lista { margin-top: 44px; display: flex; flex-direction: column; gap: 8px; }
+.faq-item  { background: var(--branco); border: 1px solid var(--cinza-q); overflow: hidden; }
+.faq-pergunta {
+  display: flex; align-items: center; gap: 14px;
+  padding: 22px 26px; cursor: pointer; user-select: none;
+  border-left: 3px solid transparent; transition: border-color .2s;
+}
+.faq-pergunta:hover { border-left-color: var(--dourado); }
+.faq-item.open .faq-pergunta { border-left-color: var(--dourado); }
+.faq-pergunta .faq-q {
+  font-family: 'EB Garamond', serif; font-size: 1.02rem; font-weight: 600;
+  color: var(--azul); flex: 1; font-style: italic;
+}
+.faq-seta {
+  width: 20px; height: 20px; flex-shrink: 0; color: var(--dourado);
+  transition: transform .25s; display: flex; align-items: center; justify-content: center;
+}
+.faq-item.open .faq-seta { transform: rotate(180deg); }
+.faq-resposta {
+  padding: 0 26px 22px 56px;
+  font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--cinza-t); line-height: 1.78;
+  display: none;
+}
+.faq-resposta strong { color: var(--azul); font-weight: 600; }
+.faq-item.open .faq-resposta { display: block; }
+
+
+/* ════════════════════════════════════════════════
+   BLOCO 10 — WHATSAPP / SUPORTE
+════════════════════════════════════════════════ */
+.suporte {
+  background: var(--cinza-q);
+  padding: 60px 0;
+  text-align: center;
+  border-top: 1px solid rgba(13,31,60,.08);
+}
+.suporte h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem,2.4vw,2rem);
+  font-weight: 700; color: var(--azul); margin-bottom: 12px;
+}
+.suporte p {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.02rem; color: var(--cinza-t); line-height: 1.72; max-width: 520px;
+  margin: 0 auto 32px;
+}
+.btn-wpp {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: #25D366; color: var(--branco);
+  font-family: 'Cinzel', serif; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 18px 36px; text-decoration: none;
+  box-shadow: 0 6px 24px rgba(37,211,102,.35);
+  transition: background .2s, transform .18s;
+}
+.btn-wpp:hover { background: #1DA851; transform: translateY(-2px); }
+.btn-wpp svg { flex-shrink: 0; }
+
+
+/* ════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════ */
+footer {
+  background: #080F1E;
+  border-top: 1px solid rgba(200,169,81,.12);
+  padding: 44px 0 28px;
+}
+.footer-inner { text-align: center; }
+.footer-logo { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:20px; }
+.footer-logo img { width:40px; filter:grayscale(40%) opacity(.5); }
+.footer-logo-txt { font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.2em; color:rgba(255,255,255,.25); text-transform:uppercase; }
+.footer-links { display:flex; justify-content:center; gap:22px; margin-bottom:20px; flex-wrap:wrap; }
+.footer-links a { font-family:'EB Garamond',serif; font-size:.9rem; color:rgba(255,255,255,.25); transition:color .2s; }
+.footer-links a:hover { color:var(--dourado); }
+.footer-copy { font-family:'EB Garamond',serif; font-size:.84rem; color:rgba(255,255,255,.18); line-height:1.65; max-width:660px; margin:0 auto; }
+
+/* ── STICKY MOBILE ──────────────────────────── */
+.sticky {
+  display: none; position: fixed; bottom:0; left:0; right:0; z-index:999;
+  background: var(--azul); border-top: 1px solid rgba(200,169,81,.3);
+  padding: 12px 20px; align-items: center; gap: 12px;
+}
+.sticky-txt strong { font-family:'Cinzel',serif; font-size:1rem; font-weight:900; color:var(--branco); display:block; line-height:1; }
+.sticky-txt span   { font-family:'EB Garamond',serif; font-size:.82rem; color:rgba(255,255,255,.4); }
+.sticky .btn { padding:13px 22px; font-size:.68rem; white-space:nowrap; flex-shrink:0; }
+
+
+/* ─── RESPONSIVO ────────────────────────────── */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-esq { padding: 72px 24px 48px; order:2; }
+  .hero-dir { order:1; height: 65vw; min-height: 260px; position: relative; }
+  .hero-dir img { position:absolute; top:0; left:0; width:100%; height:100%; }
+  .hero-dir::before { width:100%; height:150px; top:auto; bottom:0; background:linear-gradient(transparent, var(--azul) 85%); }
+  .hero-dir::after  { background:linear-gradient(to bottom, var(--azul) 0%, transparent 28%); }
+  .micro-grid { grid-template-columns:1fr; }
+  .micro-item { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); }
+  .micro-item:last-child { border-bottom:none; }
+  .capitulos-grid { grid-template-columns:1fr; }
+  .bio-grid { grid-template-columns:1fr; gap:36px; }
+  .bio-foto img { height:340px; }
+  .bio-nums { grid-template-columns: repeat(2,1fr); }
+  .garantia-box { padding:40px 24px; }
+  .oferta-card { padding:36px 22px 32px; }
+  .sticky { display:flex; }
+  body { padding-bottom:68px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size:1.9rem; }
+  .secao { padding:60px 0; }
+  .capitulos-grid { gap:1px; }
+  .faq-resposta { padding:0 20px 20px; }
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 1 — HEADLINE E PROMESSA
+════════════════════════════════════════════════ -->
+<section class="hero">
+
+  <div class="hero-esq">
+
+    <div class="hero-logo">
+      <img src="../Recursos/BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM Maricá">
+      <div class="hero-logo-txt">
+        <span class="l1">Concurso GCM Maricá 2026</span>
+        <span class="l2">E-book de Questões · RLM</span>
+      </div>
+    </div>
+
+    <h1>
+      Chega de travar em<br>
+      <em>Raciocínio Lógico</em><br>
+      na hora da prova.
+    </h1>
+
+    <p class="hero-p">
+      A solução definitiva para dominar a disciplina que mais elimina candidatos na GCM Maricá:
+      <strong>111 questões no padrão real da COSEAC, com gabarito detalhado, organizadas por assunto.</strong>
+    </p>
+
+    <div class="hero-preco">
+      <div class="hero-preco-de">De R$ 47</div>
+      <div class="hero-preco-val">R$&nbsp;<span>27</span></div>
+      <div class="hero-preco-parcela">ou 2x de R$ 14,50 no cartão</div>
+      <div class="hero-desc">Mais de 40% OFF — Lançamento</div>
+    </div>
+
+    <a href="#oferta" class="btn btn--lg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Quero aproveitar o desconto
+    </a>
+
+    <p class="hero-garantia">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--dourado);flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      7 dias de garantia incondicional — risco zero
+    </p>
+
+  </div>
+
+  <div class="hero-dir">
+    <img src="../Recursos/037.png" alt="Prof. Walter Brotto" loading="eager">
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 2 — MICROCREDENCIAIS + PROBLEMA
+════════════════════════════════════════════════ -->
+<div class="micro">
+  <div class="container">
+    <div class="micro-grid">
+      <div class="micro-item">
+        <div class="micro-ico">&#9889;</div>
+        <div class="micro-txt">Acesso imediato<br>após a compra</div>
+      </div>
+      <div class="micro-item">
+        <div class="micro-ico">&#128176;</div>
+        <div class="micro-txt">Mais barato que<br>um pedido de iFood</div>
+      </div>
+      <div class="micro-item">
+        <div class="micro-ico">&#127959;</div>
+        <div class="micro-txt">Testado e aprovado<br>por alunos do Prof. Walter</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="secao secao--creme" id="problema">
+  <div class="container narrow">
+
+    <div class="tag">O problema real</div>
+    <h2 class="titulo">O que você vai encontrar<br>no E-book de RLM?</h2>
+    <div class="div-ouro"></div>
+
+    <p class="problema-corpo">
+      Você tem dificuldade com Raciocínio Lógico-Matemático por não saber como a COSEAC cobra esses assuntos — ou pior, não sabe por onde começar, fica estudando qualquer material e chega na prova sem ter treinado com questões reais?
+    </p>
+
+    <p class="problema-corpo">
+      Talvez você nem saiba, mas <strong>a banca tem um padrão de cobrança muito específico.</strong> Quem estuda por apostila genérica entra na prova e encontra questões que nunca viu. Estudou muito — mas treinou errado.
+    </p>
+
+    <p class="problema-corpo">E, nesse caso, a matemática é simples…</p>
+
+    <div class="formula-destaque">
+      <p><strong>Muito estudo + material genérico = Oportunidades perdidas</strong></p>
+    </div>
+
+    <p class="problema-corpo">
+      Muitos candidatos que hoje são meus alunos também já passaram por isso — e conseguiram virar completamente esse jogo, porque pararam de estudar no escuro e começaram a treinar com as questões certas.
+    </p>
+
+    <p class="problema-corpo">
+      Por outro lado, é claro que você não vai ter resultado se continuar insistindo em fazer coisas assim:
+    </p>
+
+    <ul class="erros-lista">
+      <li>
+        <span class="x">✕</span>
+        Estudando teoria em apostilas feitas para 50 bancas diferentes, sem foco no padrão específico da COSEAC.
+      </li>
+      <li>
+        <span class="x">✕</span>
+        Fazendo questões avulsas sem gabarito explicado — só ver a letra certa não muda o seu raciocínio.
+      </li>
+      <li>
+        <span class="x">✕</span>
+        Deixando Sequências Lógicas e Proposições de lado por achá-las difíceis, sem perceber que são exatamente os tópicos mais cobrados.
+      </li>
+      <li>
+        <span class="x">✕</span>
+        Entrando na prova torcendo para compensar nas outras disciplinas o que vai perder em RLM. Essa estratégia elimina.
+      </li>
+    </ul>
+
+    <p class="problema-corpo">
+      Eu sei que há muito material espalhado na internet sobre RLM — mas organizar esse conhecimento de forma focada na GCM Maricá é o desafio. Por isso eu, Prof. Walter Brotto, organizei este e-book inédito: <strong>111 questões selecionadas, comentadas e prontas para o seu treino — no padrão exato da COSEAC.</strong>
+    </p>
+
+    <p class="problema-corpo">
+      Um conteúdo prático para você ter na palma da mão e consultar sempre que precisar.
+    </p>
+
+    <div style="margin-top:32px; text-align:center;">
+      <a href="#oferta" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Quero garantir o meu exemplar
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 3 — SOLUÇÃO POR CENÁRIO
+════════════════════════════════════════════════ -->
+<section class="secao secao--branco" id="solucao">
+  <div class="container narrow">
+
+    <div class="tag">Para cada necessidade, uma solução</div>
+    <h2 class="titulo">O e-book tem um conteúdo<br>para cada <em>situação</em> sua</h2>
+    <div class="div-ouro"></div>
+
+    <div class="cenario-grid">
+
+      <div class="cenario-item">
+        <div class="cenario-emoji">&#128218;</div>
+        <div class="cenario-txt">
+          <h4>Você está começando do zero?</h4>
+          <p>As questões de <strong>Operações Básicas e Razão/Proporção</strong> foram organizadas para consolidar sua base antes de avançar para os tópicos mais pesados. Progressão de dificuldade pensada para quem nunca treinou.</p>
+        </div>
+      </div>
+
+      <div class="cenario-item">
+        <div class="cenario-emoji">&#128200;</div>
+        <div class="cenario-txt">
+          <h4>Você já sabe a teoria mas trava na hora de resolver?</h4>
+          <p>O capítulo de <strong>Sequências Lógicas e Conjuntos</strong> foi pensado exatamente para isso: prática com as questões que a COSEAC mais cobra, com gabarito que explica o raciocínio passo a passo — não só a resposta certa.</p>
+        </div>
+      </div>
+
+      <div class="cenario-item">
+        <div class="cenario-emoji">&#127919;</div>
+        <div class="cenario-txt">
+          <h4>Quer resolver questões que a maioria não consegue?</h4>
+          <p><strong>Análise Combinatória e Probabilidade</strong> são os tópicos que mais assustam e mais diferenciam candidatos. Aqui você treina o raciocínio por trás de cada questão, sem decorar fórmulas.</p>
+        </div>
+      </div>
+
+      <div class="cenario-item">
+        <div class="cenario-emoji">&#129504;</div>
+        <div class="cenario-txt">
+          <h4>Proposições Lógicas te prendem?</h4>
+          <p>Tabela verdade, conectivos e negação assustam no papel — mas com treino focado viram vantagem. O último capítulo do e-book traz <strong>questões reais com raciocínio comentado</strong>, do básico ao nível da prova.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="problema-corpo" style="margin-top:36px;">
+      Deu para entender, não deu?
+    </p>
+    <p class="problema-corpo">
+      <strong>Este é um conteúdo prático, diagramado para impressão ou leitura digital, para você ter na palma da mão e consultar sempre que precisar.</strong>
+    </p>
+
+    <div style="margin-top:32px; text-align:center;">
+      <a href="#oferta" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Quero garantir o meu exemplar
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 4 — CAPÍTULOS / CONTEÚDO
+════════════════════════════════════════════════ -->
+<section class="secao secao--creme" id="conteudo">
+  <div class="container">
+
+    <div style="text-align:center;">
+      <div class="tag centro">Capítulos</div>
+      <h2 class="titulo centro">Mais de 111 questões!</h2>
+      <div class="div-ouro centro"></div>
+    </div>
+
+    <div class="capitulos-grid">
+      <div class="cap-item">
+        <div class="cap-icon">&#128300;</div>
+        <div class="cap-txt">
+          <h4>Sequências Lógicas</h4>
+          <p>O assunto mais cobrado pela COSEAC. Você treina padrões numéricos e figurativos com questões reais — e aprende a enxergar a lógica antes de tentar resolver.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#9711;</div>
+        <div class="cap-txt">
+          <h4>Conjuntos</h4>
+          <p>Diagrama de Venn, união, interseção e complementar. Questões que parecem difíceis mas têm resolução simples quando você sabe o que a banca quer.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#9878;</div>
+        <div class="cap-txt">
+          <h4>Razão, Proporção e Regra de Três</h4>
+          <p>Aplicações diretas e inversas, misturas e escalas. Fundamento de várias outras questões — quem domina isso já garante pontos importantes.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#129518;</div>
+        <div class="cap-txt">
+          <h4>Análise Combinatória</h4>
+          <p>Permutações, combinações e arranjos com as pegadinhas que a COSEAC adora. Raciocínio passo a passo — sem precisar decorar fórmula nenhuma.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#129415;</div>
+        <div class="cap-txt">
+          <h4>Casa dos Pombos</h4>
+          <p>O Princípio do Pigeonhole aplicado à prova. Simples de entender quando você o vê resolvido — difícil de enfrentar sem ter treinado antes.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#127922;</div>
+        <div class="cap-txt">
+          <h4>Probabilidade</h4>
+          <p>Eventos simples, compostos e condicionais. A COSEAC cobra com contexto — e esse contexto exige raciocínio, não sorte.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#128176;</div>
+        <div class="cap-txt">
+          <h4>Operações Básicas e Aplicações</h4>
+          <p>Porcentagem, lucro/prejuízo, juros. Questões que parecem fáceis mas têm armadilha — e que você vai aprender a identificar antes de errar.</p>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">&#129504;</div>
+        <div class="cap-txt">
+          <h4>Proposições Lógicas</h4>
+          <p>Tabela verdade, conectivos, negação e implicação. O capítulo que mais assusta — e que vira vantagem enorme sobre outros candidatos com prática.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="total-box">
+      <div class="total-num">111</div>
+      <div class="total-info">
+        <h4>questões com gabarito detalhado</h4>
+        <p>COSEAC + outras bancas policiais e militares · 8 assuntos · PDF para impressão ou leitura digital</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 5 — OFERTA
+════════════════════════════════════════════════ -->
+<section class="secao secao--azul" id="oferta">
+  <div class="container">
+
+    <div style="text-align:center;">
+      <div class="tag claro centro">Investimento</div>
+      <h2 class="titulo claro centro">Eu poderia continuar, mas…<br><em>por que deveria?</em></h2>
+      <p style="font-family:'EB Garamond',serif; font-size:1.05rem; color:rgba(245,240,232,.72); margin:16px auto 0; max-width:520px; line-height:1.75;">
+        O investimento é simbólico e o seu acesso é vitalício!
+      </p>
+    </div>
+
+    <div class="oferta-card">
+      <div class="oferta-etiqueta">Lançamento · 40% OFF</div>
+
+      <div class="oferta-nome">E-book · RLM · GCM Maricá 2026</div>
+
+      <ul class="oferta-lista">
+        <li><strong>111 questões comentadas</strong> de Raciocínio Lógico-Matemático</li>
+        <li><strong>8 assuntos</strong> no padrão exato da COSEAC/UFF</li>
+        <li><strong>Gabarito detalhado</strong> ao final de cada bloco temático</li>
+        <li><strong>COSEAC + outras bancas</strong> policiais e militares</li>
+        <li><strong>PDF imprimível</strong> — estude com caneta na mão</li>
+        <li><strong>Acesso vitalício</strong> — sem prazo de expiração</li>
+      </ul>
+
+      <div class="oferta-de">De R$ 47</div>
+      <div class="oferta-por">Por apenas</div>
+      <div class="oferta-preco">R$&nbsp;27</div>
+      <div class="oferta-parcel">ou 2x de R$ 14,50 no cartão</div>
+
+      <a href="https://kiwify.com.br/" class="btn btn--full btn--lg" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Quero aproveitar o desconto de lançamento
+      </a>
+
+      <div class="oferta-garantia-txt">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Compra segura &nbsp;|&nbsp; 7 dias de garantia incondicional
+      </div>
+
+      <div class="selos">
+        <div class="selo"><div class="selo-i">&#128274;</div><span>Compra<br>segura</span></div>
+        <div class="selo"><div class="selo-i">&#128179;</div><span>Cartão<br>ou Pix</span></div>
+        <div class="selo"><div class="selo-i">&#9989;</div><span>Acesso<br>imediato</span></div>
+        <div class="selo"><div class="selo-i">&#128196;</div><span>PDF<br>vitalício</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 6 — GARANTIA
+════════════════════════════════════════════════ -->
+<section class="secao secao--creme" id="garantia">
+  <div class="container narrow">
+
+    <div class="tag">Sem risco</div>
+    <h2 class="titulo">Sua compra está protegida.</h2>
+    <div class="div-ouro"></div>
+
+    <div class="garantia-box">
+      <p class="garantia-corpo">
+        Lembrando, é claro, que o seu investimento estará protegido por <strong>7 dias, conforme previsto e garantido por lei.</strong>
+      </p>
+      <br>
+      <p class="garantia-corpo">
+        Se por qualquer razão você achar que este e-book não for tudo o que eu prometi aqui nessa página, basta me mandar uma mensagem em até 7 dias após a confirmação da compra e eu devolverei o valor integralmente. <strong>Sem justificativa. Sem burocracia.</strong>
+      </p>
+      <br>
+      <p class="garantia-corpo">
+        Mas, se você ficar tão satisfeito quanto os outros compradores, você ainda receberá eventuais atualizações deste material sem pagar nada a mais. Combinado?
+      </p>
+    </div>
+
+    <div style="margin-top:36px; text-align:center;">
+      <a href="#oferta" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Quero garantir o meu exemplar do e-book
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 7 — URGÊNCIA
+════════════════════════════════════════════════ -->
+<div class="urgencia-box">
+  <div class="container narrow" style="text-align:center;">
+
+    <div class="urgencia-aviso">&#9888; &nbsp; Atenção — Leitura importante</div>
+
+    <h2>
+      Este não é um cronômetro<br>
+      de escassez falso!
+    </h2>
+
+    <p class="urgencia-corpo">
+      Se você voltar nesta página amanhã, a oferta de lançamento continuará aqui — por enquanto.
+    </p>
+    <p class="urgencia-corpo">
+      Este aviso é apenas para te lembrar que <strong>cada semana de preparação conta.</strong>
+      Cada dia que passa é um dia de treino que você deixou de fazer — e a prova da GCM Maricá não espera.
+    </p>
+    <p class="urgencia-corpo">
+      Ao invés de continuar deixando o tempo passar, que tal apertar no botão abaixo e começar a preparação certa de uma vez?
+    </p>
+
+    <a href="#oferta" class="btn btn--lg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Quero destravar meu acesso por R$ 27
+    </a>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 8 — BIOGRAFIA
+════════════════════════════════════════════════ -->
+<section class="secao secao--creme" id="professor">
+  <div class="container">
+
+    <div class="tag">Conheça seu professor</div>
+    <h2 class="titulo">Aprenda RLM com quem<br><em>entende do assunto</em></h2>
+
+    <div class="bio-grid">
+
+      <div class="bio-foto">
+        <img src="../Recursos/037.png" alt="Prof. Walter Brotto">
+      </div>
+
+      <div>
+        <div class="bio-tag">Autor do e-book</div>
+        <h3 class="bio-nome">Prof. Walter Brotto</h3>
+        <p class="bio-titulo">Mestre em Matemática · Especialista em RLM para Concursos Públicos</p>
+
+        <p class="bio-corpo">
+          Muito prazer, eu sou o Walter Brotto. Mestre em Matemática e professor especializado em concursos militares e policiais há mais de 10 anos.
+        </p>
+        <br>
+        <p class="bio-corpo">
+          Após ser aprovado 6 vezes em concursos públicos, entendi que <strong>dominar RLM vai além de decorar fórmulas.</strong> É treinar com as questões certas, entender o raciocínio por trás de cada uma — e reconhecer as pegadinhas antes de cair nelas.
+        </p>
+        <br>
+        <p class="bio-corpo">
+          Já ajudei centenas de candidatos a transformarem seu desempenho em Matemática e Raciocínio Lógico. E minha missão agora é colocar na sua mão o treino mais objetivo e focado para a GCM Maricá 2026.
+        </p>
+
+        <div class="bio-nums">
+          <div class="bio-num">
+            <span class="bio-num-v">+10 anos</span>
+            <span class="bio-num-l">de magistério</span>
+          </div>
+          <div class="bio-num">
+            <span class="bio-num-v">6 aprovações</span>
+            <span class="bio-num-l">em concursos públicos</span>
+          </div>
+          <div class="bio-num">
+            <span class="bio-num-v">Mestre</span>
+            <span class="bio-num-l">em Matemática</span>
+          </div>
+          <div class="bio-num">
+            <span class="bio-num-v">Arsenal</span>
+            <span class="bio-num-l">de Funis — método próprio</span>
+          </div>
+        </div>
+
+        <a href="#oferta" class="btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Estudar com o Walter
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 9 — FAQ
+════════════════════════════════════════════════ -->
+<section class="secao secao--branco" id="duvidas">
+  <div class="container narrow">
+
+    <div class="tag">Dúvidas Frequentes</div>
+    <h2 class="titulo">Dúvidas Frequentes</h2>
+    <div class="div-ouro"></div>
+
+    <div class="faq-lista">
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Posso comprar o e-book como presente para alguém?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          Pode sim! Basta preencher o e-mail do presenteado no ato da compra e ele receberá todas as instruções de acesso logo após a confirmação do pagamento.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Quanto custa o e-book?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          O investimento para baixar o e-book de RLM da GCM Maricá através dessa página é de apenas <strong>R$ 27 (uma única vez)</strong> e nem um centavo a mais. É um ganha-ganha: você investe menos que um pedido de iFood e ganha 111 questões no padrão real da sua prova.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Por que ele é tão barato? Por que devo confiar?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          Primeiro, porque eu não vendo milagres — ensino o método que funciona, de forma objetiva e sem enrolação. Segundo, porque eu aplico tudo o que ensino e tenho centenas de alunos aprovados em concursos policiais e militares. Além disso, tenho cursos, mentorias e turmas completas que custam entre R$ 197 e R$ 997. Me sinto 100% confortável em te ajudar com esse primeiro passo por R$ 27.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Quais são as formas de pagamento?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          Você pode pagar via <strong>Pix</strong> (acesso imediato) ou <strong>Cartão de Crédito</strong> em até 2x sem juros. O pagamento é processado pela plataforma Kiwify — segura e confiável.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Como vou acessar o e-book?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          Você receberá o link de download <strong>imediatamente</strong> via e-mail — o mesmo que você usar no momento da compra. Em menos de dois minutos o arquivo já está no seu celular, tablet ou computador. Pode imprimir ou ler na tela.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Por quanto tempo terei acesso ao e-book?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          O acesso ao e-book é <strong>vitalício.</strong> Uma vez baixado, o arquivo é seu para sempre — sem prazo de expiração, sem mensalidade.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-pergunta" onclick="faqToggle(this)">
+          <span class="faq-q">Se eu pedir reembolso, ainda fico com o e-book?</span>
+          <span class="faq-seta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="faq-resposta">
+          Sim. Eu sei que algumas pessoas mal-intencionadas vão se aproveitar dessa condição — mas assumo o risco. Quero construir uma relação de confiança com candidatos sérios, e estou totalmente disposto a isso. <strong>Estou decidido: você merece essa segurança.</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:40px; text-align:center;">
+      <a href="#oferta" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Estou decidido! Quero garantir o meu e-book!
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+  BLOCO 10 — SUPORTE / WHATSAPP
+════════════════════════════════════════════════ -->
+<div class="suporte">
+  <div class="container narrow">
+    <h2>Ainda ficou com alguma dúvida?</h2>
+    <p>
+      Aperte no botão abaixo para falar agora mesmo com a equipe do Prof. Walter.
+      Vamos tirar qualquer dúvida que você ainda tenha com suporte humanizado e personalizado.
+    </p>
+    <a href="https://wa.me/5527999999999" class="btn-wpp" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Entrar em contato
+    </a>
+  </div>
+</div>
+
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../Recursos/BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM Maricá">
+        <div class="footer-logo-txt">E-book RLM — GCM Maricá 2026<br>Prof. Walter Brotto</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">Termos de Uso</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="https://www.instagram.com/walterbrotto/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/@walterbrottoprof" target="_blank" rel="noopener">YouTube</a>
+      </div>
+      <p class="footer-copy">
+        Este produto é distribuído digitalmente. Não possui vínculo oficial com a GCM Maricá, COSEAC/UFF ou Prefeitura de Maricá.<br>
+        Os resultados mencionados são individuais e não garantem aprovação. O e-book prepara o candidato para a disciplina de RLM.<br>
+        &copy; 2026 Prof. Walter Brotto. Todos os direitos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ─── STICKY MOBILE ─── -->
+<div class="sticky">
+  <div class="sticky-txt">
+    <strong>R$ 27</strong>
+    <span>E-book RLM GCM Maricá</span>
+  </div>
+  <a href="#oferta" class="btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    Garantir agora
+  </a>
+</div>
+
+
+<script>
+/* FAQ */
+function faqToggle(el) {
+  var item = el.closest('.faq-item');
+  var open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){ i.classList.remove('open'); });
+  if (!open) item.classList.add('open');
+}
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var t = document.querySelector(this.getAttribute('href'));
+    if (t){ e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banner Checkout — GCM Maricá</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .banner {
+    width: 2000px;
+    height: 590px;
+    background: #0D1F3C;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  /* Gradientes sutis de fundo — sem excessos */
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 50% 50%, rgba(26,58,107,.55) 0%, transparent 70%),
+      radial-gradient(ellipse 100% 40% at 50% 0%, rgba(200,169,81,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 40% at 50% 100%, rgba(200,169,81,.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Linha dourada superior */
+  .borda-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #C8A951 20%, #E8C96A 50%, #C8A951 80%, transparent 100%);
+  }
+
+  /* Linha dourada inferior */
+  .borda-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #C8A951 20%, #E8C96A 50%, #C8A951 80%, transparent 100%);
+  }
+
+  /* Ornamento vertical esquerdo */
+  .ornamento-esq {
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    opacity: .35;
+  }
+  .ornamento-dir {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    opacity: .35;
+  }
+
+  /* Conteúdo centralizado */
+  .content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    padding: 0 240px;
+  }
+
+  /* Logo */
+  .logo-wrap {
+    margin-bottom: 28px;
+  }
+  .logo-wrap img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,.4));
+  }
+
+  /* Divisor heráldico acima do texto */
+  .divisor {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .divisor-linha {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #C8A951);
+  }
+  .divisor-linha.rev {
+    background: linear-gradient(90deg, #C8A951, transparent);
+  }
+  .divisor-ornamento {
+    width: 8px;
+    height: 8px;
+    background: #C8A951;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* Texto principal */
+  .headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.15;
+    text-align: center;
+    margin-bottom: 0;
+    letter-spacing: .01em;
+  }
+  .headline em {
+    font-style: italic;
+    color: #C8A951;
+  }
+
+  /* Linha separadora entre as frases */
+  .linha-meio {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #C8A951, transparent);
+    margin: 22px auto;
+  }
+
+  /* Subtexto */
+  .subtexto {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 30px;
+    font-weight: 400;
+    font-style: italic;
+    color: #D6DDE8;
+    text-align: center;
+    letter-spacing: .02em;
+    line-height: 1.4;
+  }
+
+  /* Divisor inferior */
+  .divisor-baixo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+
+  <!-- Bordas douradas -->
+  <div class="borda-top"></div>
+  <div class="borda-bottom"></div>
+
+  <!-- Ornamentos laterais — escudo SVG sutil -->
+  <div class="ornamento-esq">
+    <svg viewBox="0 0 80 110" width="80" height="110" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 6 L68 20 L68 60 Q68 88 40 102 Q12 88 12 60 L12 20 Z"
+            fill="none" stroke="#C8A951" stroke-width="1.5"/>
+      <path d="M40 12 L63 24 L63 60 Q63 85 40 97 Q17 85 17 60 L17 24 Z"
+            fill="#C8A951" opacity=".08"/>
+      <polygon points="40,22 44,35 58,35 47,44 51,57 40,48 29,57 33,44 22,35 36,35"
+               fill="#C8A951" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="ornamento-dir">
+    <svg viewBox="0 0 80 110" width="80" height="110" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 6 L68 20 L68 60 Q68 88 40 102 Q12 88 12 60 L12 20 Z"
+            fill="none" stroke="#C8A951" stroke-width="1.5"/>
+      <path d="M40 12 L63 24 L63 60 Q63 85 40 97 Q17 85 17 60 L17 24 Z"
+            fill="#C8A951" opacity=".08"/>
+      <polygon points="40,22 44,35 58,35 47,44 51,57 40,48 29,57 33,44 22,35 36,35"
+               fill="#C8A951" opacity=".6"/>
+    </svg>
+  </div>
+
+  <!-- Conteúdo central -->
+  <div class="content">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <img src="BRAFDFDFDSOES-LANDING-PAGE-1024x1024.png" alt="GCM Maricá — Guarda Municipal">
+    </div>
+
+    <!-- Divisor heráldico superior -->
+    <div class="divisor">
+      <div class="divisor-linha"></div>
+      <div class="divisor-ornamento"></div>
+      <div class="divisor-ornamento" style="opacity:.5;transform:rotate(45deg) scale(.6);"></div>
+      <div class="divisor-ornamento"></div>
+      <div class="divisor-linha rev"></div>
+    </div>
+
+    <!-- Texto principal -->
+    <div class="headline">
+      Este material já é <em>quase seu!</em>
+    </div>
+
+    <div class="linha-meio"></div>
+
+    <!-- Subtexto -->
+    <div class="subtexto">
+      Preencha seus dados no campo abaixo para liberar o seu acesso.
+    </div>
+
+    <!-- Divisor heráldico inferior -->
+    <div class="divisor-baixo">
+      <div class="divisor-linha"></div>
+      <div class="divisor-ornamento"></div>
+      <div class="divisor-ornamento" style="opacity:.5;transform:rotate(45deg) scale(.6);"></div>
+      <div class="divisor-ornamento"></div>
+      <div class="divisor-linha rev"></div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
